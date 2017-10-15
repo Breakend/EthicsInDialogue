@@ -18,6 +18,9 @@ python main.py --cuda --epochs 50--emsize=300 --nhid=650 --dropout 0.5 --type=de
 
 Where, `--type` can be `debiased`, `word2vec`, `glove` and `concept`
 
+After extensive hyperparameter testing, the above hyparparams produce the best validation perplexity of 126.77.
+
+
 ### Generate
 
 To generate examples:
