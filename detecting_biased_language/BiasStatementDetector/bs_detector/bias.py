@@ -18,6 +18,7 @@ import csv
 import numpy as np
 import pyprind
 import re
+import argparse
 
 
 def get_list_from_file(file_name):
@@ -524,7 +525,8 @@ def extract_bias_features(text):
     return features
 
 
-def get_raw_data_for_features(list_of_sentences, KEYS_DONE=False):
+def get_raw_data_for_features(list_of_sentences):
+    KEYS_DONE = False
     data = []
     bar = pyprind.ProgBar(len(list_of_sentences), monitor=True, stream=sys.stdout)  # show a progression bar on the screen
     print ""
@@ -584,62 +586,20 @@ def demo_sample_news_story_sentences():
             bias = compute_bias(statement)
             print(statement, bias)
 
-def get_twitter_bias():
-    print "loading twitter data..."
-    train_lines = get_list_from_file('../../twitter/train.txt')
-    valid_lines = get_list_from_file('../../twitter/valid.txt')
-    test_lines = get_list_from_file('../../twitter/test.txt')
+def get_bias(data_name, data_paths):
+    print "loading data..."
+    lines = []
+    for f in data_paths:
+        lines.extend(get_list_from_file(f))
     print "data loaded."
 
-    print "\nget train data stats"
-    data_train = np.array(get_raw_data_for_features(train_lines))
-    print "\nget valid data stats"
-    data_valid = np.array(get_raw_data_for_features(valid_lines, KEYS_DONE=True))
-    print "\nget test data stats"
-    data_test = np.array(get_raw_data_for_features(test_lines, KEYS_DONE=True))
-    # concatenate the 3 data along first axis
-    data = np.concatenate((data_train, data_valid, data_test), axis=0)
+    print "\nget data stats"
+    data = np.array(get_raw_data_for_features(lines))
     # save the column index where we have string values
     str_idx = np.where(data[0]=='mood')[0][0]
     
     print "\nSaving to CVS file..."
-    with open('twitter.csv', 'wb') as f:
-        writer = csv.writer(f)
-        writer.writerows(data)  # write full matrix
-        data_no_str = np.hstack((
-            data[1:, :str_idx],    # skip 1st line: the feature names
-            [[0.]]*(len(data)-1),  # replace string column with 0's
-            data[1:, str_idx+1:]   # skip 1st line: the feature names
-        )).astype(np.float)
-        total = np.sum(data_no_str, axis=0)
-        writer.writerow(total)    # write sum of each feature
-        average = total / float(len(data_no_str))
-        writer.writerow(average)  # write average for each feature
-    print "saved."
-
-    return total, average
-
-
-def get_reddit_bias():
-    print "loading reddit data..."
-    train_lines = get_list_from_file('../../reddit/allnews/allnews_train.txt')
-    valid_lines = get_list_from_file('../../reddit/allnews/allnews_val.txt')
-    test_lines = get_list_from_file('../../reddit/allnews/allnews_test.txt')
-    print "data loaded."
-
-    print "\nget train data stats"
-    data_train = np.array(get_raw_data_for_features(train_lines))
-    print "\nget valid data stats"
-    data_valid = np.array(get_raw_data_for_features(valid_lines, KEYS_DONE=True))
-    print "\nget test data stats"
-    data_test = np.array(get_raw_data_for_features(test_lines, KEYS_DONE=True))
-    # concatenate the 3 data along first axis
-    data = np.concatenate((data_train, data_valid, data_test), axis=0)
-    # save the column index where we have string values
-    str_idx = np.where(data[0]=='mood')[0][0]
-    
-    print "\nSaving to CVS file..."
-    with open('reddit.csv', 'wb') as f:
+    with open('%s.csv' % data_name, 'wb') as f:
         writer = csv.writer(f)
         writer.writerows(data)  # write full matrix
         data_no_str = np.hstack((
@@ -657,26 +617,36 @@ def get_reddit_bias():
 
 
 if __name__ == '__main__':
-    #demo_sample_news_story_sentences()
-    total, average = get_twitter_bias()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('data_name', choices=['twitter', 'reddit'])
+    args = parser.parse_args()
+
+    # demo_sample_news_story_sentences()
+
+    if args.data_name == 'twitter':
+        data_paths = [
+            '/home/ml/nangel3/research/data/twitter/train.txt',
+            '/home/ml/nangel3/research/data/twitter/valid.txt',
+            '/home/ml/nangel3/research/data/twitter/test.txt'
+        ]
+    elif args.data_name == 'reddit':
+        data_paths = [
+            '/home/ml/nangel3/research/data/reddit/allnews/allnews_train.txt',
+            '/home/ml/nangel3/research/data/reddit/allnews/allnews_val.txt',
+            '/home/ml/nangel3/research/data/reddit/allnews/allnews_test.txt'
+        ]
+    else:
+        print "ERROR: unrecognized data name"
+        data_paths = []
+
+    total, average = get_bias(args.data_name, data_paths)
     print "=====TOTAL======"
     print total
     print "====AVERAGE====="
     print average
     print "==========="
-    with open('twitter_recap.csv', 'wb') as f:
+    with open('%s_recap.csv' % args.data_name, 'wb') as f:
         writer = csv.writer(f)
         writer.writerow(total)
         writer.writerow(average)
-
-    # total, average = get_reddit_bias()
-    # print "=====TOTAL======"
-    # print total
-    # print "====AVERAGE====="
-    # print average
-    # print "==========="
-    # with open('reddit_recap.csv', 'wb') as f:
-    #     writer = csv.writer(f)
-    #     writer.writerow(total)
-    #     writer.writerow(average)
 
