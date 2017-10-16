@@ -535,9 +535,11 @@ def get_raw_data_for_features(list_of_sentences):
             s = s.replace('</s> ', '')\
                 .replace('<first_speaker> ', '')\
                 .replace('<second_speaker> ', '')\
+                .replace('<third_speaker>', '')\
                 .replace('<at> ', '')\
                 .replace('</d> ', '')\
-                .replace(' </s>', '')
+                .replace(' </s>', '')\
+                .replace(' </d>', '')
             s = re.sub('<speaker_[0-9]+> ', '', s)
             feat = extract_bias_features(unicode(s, errors='ignore'))
             bias = compute_bias(s, feat)
@@ -546,13 +548,13 @@ def get_raw_data_for_features(list_of_sentences):
             # if keys not printed yet, print *all* of them, and add the *filtered* ones to data
             if not KEYS_DONE:
                 # print feat.keys()
-                print ['bias_score']+keys
-                data.append(['bias_score']+keys)
+                print ['sentence', 'bias_score']+keys
+                data.append(['sentence', 'bias_score']+keys)
                 KEYS_DONE = True
             # print *all* values
             # print feat.values()+[bias]
             # but add *filtered* values
-            data.append([bias]+[feat[k] for k in keys])
+            data.append([s, bias]+[feat[k] for k in keys])
             # write '.' with no space and no new line -- just like c function print()
             #sys.stdout.write('.')
             #sys.stdout.flush()
@@ -586,27 +588,31 @@ def demo_sample_news_story_sentences():
             bias = compute_bias(statement)
             print(statement, bias)
 
-def get_bias(data_name, data_paths):
+def get_bias(data_name, data_paths, debug=False):
     print "loading data..."
     lines = []
     for f in data_paths:
-        lines.extend(get_list_from_file(f))
-    print "data loaded."
+        if debug: lines.extend(get_list_from_file(f)[:100])
+        else: lines.extend(get_list_from_file(f))
+    print "data loaded: %d sentences." % len(lines)
 
     print "\nget data stats"
     data = np.array(get_raw_data_for_features(lines))
-    # save the column index where we have string values
+    # save the column index where we have string values:
     str_idx = np.where(data[0]=='mood')[0][0]
     
     print "\nSaving to CVS file..."
     with open('%s.csv' % data_name, 'wb') as f:
         writer = csv.writer(f)
-        writer.writerows(data)  # write full matrix
+        writer.writerows(data)  # write full matrix to file
+        # create a no-string data to sum and average all rows
         data_no_str = np.hstack((
-            data[1:, :str_idx],    # skip 1st line: the feature names
-            [[0.]]*(len(data)-1),  # replace string column with 0's
-            data[1:, str_idx+1:]   # skip 1st line: the feature names
+            [[0.]] * (len(data) - 1),  # replace sentence column with 0's
+            data[1:, 1:str_idx],       # skip 1st line (feature names) and 1st column (sentences)
+            [[0.]] * (len(data) - 1),  # replace mood column with 0's
+            data[1:, str_idx+1:]       # skip 1st line (feature names)
         )).astype(np.float)
+
         total = np.sum(data_no_str, axis=0)
         writer.writerow(total)    # write sum of each feature
         average = total / float(len(data_no_str))
@@ -619,6 +625,7 @@ def get_bias(data_name, data_paths):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('data_name', choices=['twitter', 'reddit'])
+    parser.add_argument('--debug', action='store_true')
     args = parser.parse_args()
 
     # demo_sample_news_story_sentences()
@@ -639,7 +646,7 @@ if __name__ == '__main__':
         print "ERROR: unrecognized data name"
         data_paths = []
 
-    total, average = get_bias(args.data_name, data_paths)
+    total, average = get_bias(args.data_name, data_paths, args.debug)
     print "=====TOTAL======"
     print total
     print "====AVERAGE====="
