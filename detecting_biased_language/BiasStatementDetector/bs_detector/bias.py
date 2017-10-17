@@ -341,6 +341,8 @@ def extract_bias_features(text):
     txt_lwr = str(text).lower()
     words = nltk.word_tokenize(txt_lwr)
     words = [w for w in words if len(w) > 0 and w not in '.?!,;:\'s"$']
+    if len(words) < 1:
+        return None
     unigrams = sorted(list(set(words)))
     bigram_tokens = nltk.bigrams(words)
     bigrams = [" ".join([w1, w2]) for w1, w2 in sorted(set(bigram_tokens))]
@@ -531,21 +533,24 @@ def get_raw_data_for_features(list_of_sentences):
     bar = pyprind.ProgBar(len(list_of_sentences), monitor=False, stream=sys.stdout)  # show a progression bar on the screen
     print ""
     for s in list_of_sentences:
+        s = s.replace('</s> ', '')\
+            .replace('<first_speaker> ', '')\
+            .replace('<second_speaker> ', '')\
+            .replace('<third_speaker>', '')\
+            .replace('<at> ', '')\
+            .replace('</d> ', '')\
+            .replace(' </s>', '')\
+            .replace(' </d>', '')\
+            .replace('__eou__ ', '')\
+            .replace(' __eou__', '')\
+            .replace(';', '')\
+            .replace('__eot__ ', '')
+        s = re.sub('<speaker_[0-9]+> ', '', s)
+        s = unicode(s, errors='ignore')
         if len(s) > 3:
-            s = s.replace('</s> ', '')\
-                .replace('<first_speaker> ', '')\
-                .replace('<second_speaker> ', '')\
-                .replace('<third_speaker>', '')\
-                .replace('<at> ', '')\
-                .replace('</d> ', '')\
-                .replace(' </s>', '')\
-                .replace(' </d>', '')\
-                .replace('__eou__ ', '')\
-                .replace(' __eou__', '')\
-                .replace(';', '')\
-                .replace('__eot__ ', '')
-            s = re.sub('<speaker_[0-9]+> ', '', s)
-            feat = extract_bias_features(unicode(s, errors='ignore'))
+            feat = extract_bias_features(s)
+            if feat is None:  # if no features were found (s was too small)
+                continue      # continue to next sentence in the loop
             bias = compute_bias(s, feat)
             # Get the count and prop keys, not the list of instances
             keys = sorted(filter(lambda k: not k.endswith('_list'), feat.keys()))
@@ -604,6 +609,7 @@ def get_bias(data_name, data_paths, debug=False):
     data = np.array(get_raw_data_for_features(lines))
     # save the column index where we have string values:
     str_idx = np.where(data[0]=='mood')[0][0]
+    print "Got %d sentence stats" % (len(data)-1)
     
     print "\nSaving to CVS file..."
     with open('%s.csv' % data_name, 'wb') as f:
@@ -653,9 +659,10 @@ if __name__ == '__main__':
             '/home/ml/nangel3/research/data/ubuntu/UbuntuDialogueCorpus/raw_test_text.txt'
         ]
     elif args.data_name == 'movie':
-        # TODO: extract raw movie lines from
-        # '/home/ml/nangel3/research/data/cornell_movie-dialogs_corpus/movie_lines.txt'
-        data_paths = None
+        # extracted raw movie lines from
+        # '/home/ml/nangel3/research/data/cornell_movie-dialogs_corpus/movie_lines.txt' to
+        # '/home/ml/nangel3/research/data/cornell_movie-dialogs_corpus/movie_script_lines.txt'
+        data_paths = ['/home/ml/nangel3/research/data/cornell_movie-dialogs_corpus/movie_script_lines.txt']
     else:
         print "ERROR: unrecognized data name"
         data_paths = []

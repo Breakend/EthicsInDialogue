@@ -1,0 +1,98 @@
+sentence	bias_score	assertive_verb_count	assertive_verb_prop	bias_count	bias_prop	coherence_marker_count	coherence_marker_prop	degree_modifier_count	degree_modifier_prop	factive_verb_count	factive_verb_prop	flesch-kincaid_grade_level	hedge_word_count	hedge_word_prop	implicative_verb_count	implicative_verb_prop	liwc_3rd_person_pronoum_count	liwc_3rd_person_pronoun_prop	liwc_achievement_word_count	liwc_achievement_word_prop	liwc_adverb_count	liwc_adverb_prop	liwc_auxiliary_verb_count	liwc_auxiliary_verb_prop	liwc_causation_word_count	liwc_causation_word_prop	liwc_certainty_word_count	liwc_certainty_word_prop	liwc_conjunction_count	liwc_conjunction_prop	liwc_discrepency_word_count	liwc_discrepency_word_prop	liwc_preposition_count	liwc_preposition_prop	liwc_tentative_word_count	liwc_tentative_word_prop	liwc_work_word_count	liwc_work_word_prop	modality	mood	opinion_count	opinion_prop	subjective_strong_count	subjective_strong_prop	subjective_weak_count	subjective_weak_prop	subjectivity_score	unique_word_count	vader_composite_sentiment	word_count
+hopefully.	9.9645397363	0	0	0	0	0	0	0	0	0	0	27.3	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	1	1	0	0	1	1	0	0	0.25	indicative	0	0	0	0	0	0	0	1	0.4019	1
+she okay?	4.2145419184	0	0	0	0	0	0	0	0	0	0	1.7	0	0	0	0	1	0.5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0.5	2	0.2263	2
+i hope so.	3.5290190271	0	0	0	0	0	0	0	0	0	0	-0.3	0	0	0	0	0	0	0	0	1	0.3333	0	0	0	0	0	0	1	0.3333	1	0.3333	0	0	1	0.3333	0	0	1	indicative	0	0	0	0	0	0	0	3	0.4404	3
+queen harry?	2.8270603	0	0	0	0	0	0	0	0	0	0	1.7	0	0	0	0	0	0	1	0.5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	2	0	2
+they do not!	2.7430555954	0	0	0	0	0	0	0	0	0	0	-3.8	0	0	0	0	1	0.3333	0	0	0	0	1	0.3333	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	imperative	0	0	0	0	0	0	0	3	0	3
+they do to!	2.7430555954	0	0	0	0	0	0	0	0	0	0	-3.8	0	0	0	0	1	0.3333	0	0	0	0	1	0.3333	0	0	0	0	0	0	0	0	1	0.3333	0	0	0	0	1	imperative	0	0	0	0	0	0	0	3	0	3
+is he oily or dry?	2.54861788	0	0	0	0	0	0	0	0	0	0	-0.7	0	0	0	0	1	0.2	0	0	0	0	1	0.2	0	0	0	0	1	0.2	0	0	0	0	1	0.2	0	0	1	indicative	0	0	0	0	0	0	0.6	5	0	5
+looks like things worked out tonight, huh?	2.1767530632	0	0	0	0	0	0	0	0	0	0	2.5	0	0	0	0	0	0	1	0.1429	0	0	0	0	0	0	0	0	0	0	0	0	1	0.1429	0	0	1	0.1429	0.75	indicative	0	0	0	0	0	0	0	7	0.3612	7
+where did he go?  he was just here.	2.047072525	0	0	0	0	0	0	0	0	0	0	-2.2	0	0	0	0	2	0.25	0	0	3	0.375	2	0.25	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	7	0	8
+she's not a...	1.9179639	0	0	0	0	0	0	0	0	0	0	-3.8	0	0	0	0	1	0.25	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0.75	indicative	0	0	0	0	0	0	0	4	0	4
+seems like she could get a date easy enough...	1.6243642335	0	0	0	0	0	0	0	0	0	0	3.3	0	0	0	0	1	0.1	0	0	0	0	1	0.1	0	0	0	0	0	0	1	0.1	0	0	1	0.1	0	0	0.1786	conditional	0	0	0	0	0	0	0.6667	10	0.6597	10
+so that's the kind of guy she likes? pretty ones?	1.5133938833	0	0	0	0	1	0.1	1	0.1	0	0	2.5	0	0	0	0	1	0.1	0	0	1	0.1	0	0	0	0	0	0	1	0.1	0	0	1	0.1	1	0.1	0	0	1	indicative	0	0	0	0	0	0	0.95	10	0.7476	10
+gosh, if only we could find kat a boyfriend...	1.1943553113	0	0	0	0	1	0.1	0	0	0	0	0.9	0	0	0	0	0	0	0	0	1	0.1	1	0.1	0	0	0	0	1	0.1	2	0.2	0	0	1	0.1	0	0	0.3125	conditional	0	0	0	0	0	0	1	10	0	10
+unsolved mystery.  she used to be really popular when she started high school, then it was just like she got sick of it or something.	1.1257731147	0	0	0	0	0	0	0	0	0	0	9.5	0	0	0	0	3	0.12	0	0	3	0.12	2	0.08	1	0.04	0	0	3	0.12	0	0	2	0.08	1	0.04	0	0	0.75	indicative	0	0	0	0	0	0	0.7657	22	0.3167	25
+sometimes i wonder if the guys we're supposed to want to go out with are the ones we actually want to go out with, you know?	0.9119317886	0	0	0	0	1	0.037	0	0	0	0	9.9	0	0	0	0	0	0	0	0	1	0.037	1	0.037	0	0	0	0	1	0.037	3	0.1111	7	0.2593	4	0.1481	0	0	0.2083	indicative	0	0	0	0	0	0	0.1	19	0.1531	27
+listen, i want to talk to you about the prom.	0.886487809	0	0	0	0	0	0	0	0	0	0	1.3	0	0	0	0	0	0	0	0	1	0.1	0	0	0	0	0	0	0	0	1	0.1	3	0.3	0	0	1	0.1	-0.25	indicative	0	0	0	0	0	0	0	9	0.0772	10
+i'm workin' on it. but she doesn't seem to be goin' for him.	0.7976263199	0	0	0	0	0	0	0	0	0	0	-1.4	0	0	0	0	2	0.1333	0	0	0	0	2	0.1333	0	0	0	0	1	0.0667	0	0	3	0.2	1	0.0667	0	0	-0.125	indicative	0	0	0	0	0	0	0	15	0	15
+he practically proposed when he found out we had the same dermatologist. i mean. dr. bonchowski is great an all, but he's not exactly relevant party conversation.	0.7940734816	0	0	0	0	1	0.037	0	0	0	0	7.2	0	0	0	0	3	0.1111	0	0	1	0.037	2	0.0741	0	0	1	0.037	2	0.0741	0	0	1	0.037	1	0.037	0	0	0.55	indicative	0	0	0	0	0	0	0.6156	25	-0.0867	27
+well, i thought we'd start with pronunciation, if that's okay with you.	0.7772243138	0	0	0	0	0	0	0	0	0	0	3.3	0	0	0	0	0	0	0	0	1	0.0769	0	0	0	0	0	0	1	0.0769	1	0.0769	2	0.1538	1	0.0769	0	0	0.75	conditional	0	0	0	0	0	0	0.5	12	0.4588	13
+lesbian?  no. i found a picture of jared leto in one of her drawers, so i'm pretty sure she's not harboring same-sex tendencies.	0.741784434	0	0	0	0	0	0	0	0	0	0	11.1	0	0	0	0	2	0.0833	0	0	1	0.0417	0	0	0	0	0	0	1	0.0417	0	0	3	0.125	1	0.0417	0	0	0.4	indicative	0	0	0	0	0	0	0.9444	22	0.5916	24
+you're concentrating awfully hard considering it's gym class.	0.7289182158	0	0	0	0	0	0	0	0	0	0	10	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0.1111	0.5	indicative	0	0	0	0	0	0	0.5417	9	-0.1761	9
+you think you ' re the only sophomore at the prom?	0.68123865	0	0	0	0	0	0	0	0	0	0	3.7	0	0	0	0	0	0	0	0	1	0.1	0	0	0	0	0	0	0	0	0	0	1	0.1	0	0	1	0.1	0.5	indicative	0	0	0	0	0	0	1	8	0	10
+thank god!  if i had to hear one more story about your coiffure...	0.6402238335	0	0	0	0	0	0	0	0	0	0	3.6	0	0	0	0	0	0	0	0	1	0.0714	1	0.0714	0	0	0	0	1	0.0714	1	0.0714	2	0.1429	1	0.0714	0	0	0.5	indicative	0	0	0	0	0	0	0.5	14	0.5983	14
+"then guillermo says, ""if you go any lighter, you're gonna look like an extra on 90210."""	0.6111964567	0	0	0	0	0	0	0	0	0	0	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	2	0.1	1	0.05	1	0.05	2	0.1	0	0	0.5833	indicative	0	0	0	0	0	0	0.1	19	0.3612	20
+who knows?  all i've ever heard her say is that she'd dip before dating a guy that smokes.	0.561406165	0	0	0	0	0	0	0	0	0	0	5.6	0	0	0	0	2	0.1	0	0	1	0.05	1	0.05	0	0	2	0.1	0	0	0	0	1	0.05	0	0	0	0	0.55	conditional	0	0	0	0	0	0	0	19	0	20
+okay... then how 'bout we try out some french cuisine.  saturday?  night?	0.5377784887	0	0	0	0	0	0	0	0	0	0	4.4	0	0	0	0	0	0	1	0.0769	1	0.0769	0	0	1	0.0769	0	0	2	0.1538	0	0	1	0.0769	1	0.0769	0	0	0.5833	indicative	0	0	0	0	0	0	0.25	13	0	13
+okay -- you're gonna need to learn how to lie.	0.3791190492	0	0	0	0	0	0	0	0	0	0	0.9	0	0	0	0	0	0	0	0	1	0.0833	0	0	1	0.0833	0	0	1	0.0833	1	0.0833	2	0.1667	0	0	0	0	0.75	indicative	0	0	0	0	0	0	0.5	11	0.2263	12
+you know the deal.  i can ' t go if kat doesn't go --	0.3676401922	0	0	0	0	1	0.0714	0	0	0	0	-3.8	0	0	0	0	0	0	0	0	0	0	2	0.1429	0	0	0	0	1	0.0714	1	0.0714	0	0	1	0.0714	0	0	0.375	conditional	0	0	0	0	0	0	0	13	0	14
+my agent says i've got a good shot at being the prada guy next year.	0.3373193758	0	0	0	0	0	0	0	0	0	0	3.2	0	0	0	0	0	0	0	0	0	0	1	0.0625	0	0	0	0	0	0	0	0	1	0.0625	0	0	1	0.0625	0.25	indicative	0	0	0	0	0	0	0.3	16	0.4404	16
+how is our little find the wench a date plan progressing?	0.2216133905	0	0	0	0	0	0	0	0	0	0	2.9	0	0	0	0	0	0	1	0.0909	1	0.0909	1	0.0909	1	0.0909	0	0	1	0.0909	0	0	0	0	0	0	0	0	0.5	indicative	0	0	0	0	0	0	0.5	11	0	11
+"so yeah, i've got the sears catalog thing going -- and the tube sock gig "" that's gonna be huge.  and then i'm up for an ad for queen harry next week."	0.1966431014	0	0	0	0	0	0	0	0	0	0	3.2	0	0	0	0	0	0	1	0.0286	1	0.0286	1	0.0286	0	0	0	0	4	0.1143	0	0	3	0.0857	0	0	0	0	0.75	indicative	0	0	0	0	0	0	0.45	31	0.5849	35
+combination.  i don't know -- i thought he'd be different.  more of a gentleman...	0.1913527173	0	0	0	0	0	0	0	0	0	0	4.5	0	0	0	0	1	0.0588	0	0	0	0	2	0.1176	0	0	0	0	0	0	0	0	1	0.0588	0	0	0	0	0.5	imperative	0	0	0	0	0	0	0.55	16	0	17
+great	0.1755659674	0	0	0	0	0	0	0	0	0	0	-4.6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0.75	1	0.6249	1
+you're asking me out.  that's so cute. what's your name again?	0.1651349464	0	0	0	0	0	0	0	0	0	0	0.9	0	0	0	0	0	0	0	0	2	0.1667	0	0	0	0	0	0	1	0.0833	0	0	1	0.0833	0	0	0	0	1	indicative	0	0	0	0	0	0	1	12	0.5949	12
+well, there's someone i think might be --	0.1544280626	0	0	0	0	0	0	0	0	0	0	2.5	0	0	0	0	0	0	0	0	2	0.25	2	0.25	0	0	0	0	0	0	0	0	0	0	1	0.125	0	0	0.0833	conditional	0	0	0	0	0	0	0	8	0.2732	8
+"i looked for you back at the party, but you always seemed to be ""occupied""."	0.141723925	0	0	0	0	0	0	0	0	0	0	5.6	0	0	0	0	0	0	0	0	1	0.0588	1	0.0588	0	0	1	0.0588	1	0.0588	0	0	3	0.1765	1	0.0588	0	0	0.6875	indicative	0	0	0	0	0	0	0	16	0.2144	17
+have fun tonight?	0.1358237774	0	0	0	0	0	0	0	0	0	0	3.3	0	0	0	0	0	0	0	0	0	0	1	0.3333	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0.2	3	0.5106	3
+"i'm kidding.  you know how sometimes you just become this ""persona""?  and you don't know how to quit?"	0.1242930504	0	0	0	0	1	0.0455	0	0	0	0	3.3	0	0	0	0	0	0	1	0.0455	3	0.1364	2	0.0909	2	0.0909	0	0	3	0.1364	0	0	1	0.0455	1	0.0455	0	0	0.2813	indicative	0	0	0	0	0	0	0	18	0.1926	22
+you're sweet.	0.1178128812	0	0	0	0	0	0	0	0	0	0	1.7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0.65	3	0.4588	3
+hey, sweet cheeks.	0.1178128812	0	0	0	0	0	0	0	0	0	0	-3.8	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0.65	3	0.4588	3
+what good stuff?	0.1114151883	0	0	0	0	0	0	0	0	0	0	-3.8	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0.6	3	0.4404	3
+you might wanna think about it	0.0986947934	0	0	0	0	0	0	0	0	0	0	0.9	0	0	0	0	0	0	0	0	1	0.1429	1	0.1429	0	0	0	0	0	0	0	0	1	0.1429	1	0.1429	0	0	0	conditional	0	0	0	0	0	0	0	7	0	7
+right.  see?  you're ready for the quiz.	0.0838772928	0	0	0	0	0	0	0	0	0	0	1.3	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0.125	0	0	0	0	1	indicative	0	0	0	0	0	0	0.5179	8	0.3612	8
+i don't want to know how to say that though.  i want to know useful things. like where the good stores are.  how much does champagne cost?  stuff like chat.  i have never in my life had to point out my head to someone.	0.0798355369	1	0.0222	0	0	0	0	0	0	0	0	1.3	0	0	0	0	0	0	0	0	4	0.0889	5	0.1111	2	0.0444	1	0.0222	3	0.0667	2	0.0444	7	0.1556	0	0	0	0	0.3036	imperative	0	0	0	0	0	0	0.2667	34	0.8899	45
+you never wanted to go out with 'me, did you?	0.0721401525	0	0	0	0	0	0	0	0	0	0	1.3	0	0	0	0	0	0	0	0	0	0	1	0.1	0	0	1	0.1	0	0	1	0.1	3	0.3	0	0	0	0	0.125	indicative	0	0	0	0	0	0	0	9	0	10
+not the hacking and gagging and spitting part.  please.	0.0689261627	0	0	0	0	0	0	0	0	0	0	2.1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	2	0.2222	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	8	0.3182	9
+it's a gay cruise line, but i'll be, like, wearing a uniform and stuff.	0.0038292366	0	0	0	0	0	0	0	0	0	0	5.2	0	0	0	0	0	0	0	0	0	0	1	0.0667	0	0	0	0	2	0.1333	0	0	0	0	0	0	0	0	0.75	conditional	0	0	0	0	0	0	0.5833	14	0.5023	15
+i figured you'd get to the good stuff eventually.	-0.0176934367	0	0	0	0	0	0	0	0	0	0	4.4	0	0	0	0	0	0	0	0	1	0.1	0	0	0	0	0	0	0	0	0	0	1	0.1	0	0	0	0	0.75	conditional	0	0	0	0	0	0	0.6	10	0.4404	10
+me.  this endless ...blonde babble. i'm like, boring myself.	-0.0237708439	0	0	0	0	0	0	0	0	0	0	5.6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0.875	11	0.0516	11
+that's because it's such a nice one.	-0.02426498	0	0	0	0	0	0	0	0	0	0	2.5	0	0	0	0	0	0	0	0	1	0.1429	0	0	1	0.1429	0	0	1	0.1429	0	0	0	0	0	0	0	0	0.75	indicative	0	0	0	0	0	0	0.75	7	0.4215	7
+let's go.	-0.0417122	0	0	0	0	0	0	0	0	0	0	-4.2	0	0	0	0	0	0	0	0	0	0	1	0.5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	imperative	0	0	0	0	0	0	0	2	0	2
+i was?	-0.0417122	0	0	0	0	0	0	0	0	0	0	-4.2	0	0	0	0	0	0	0	0	0	0	1	0.5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	2	0	2
+tons	-0.0417122	0	0	0	0	0	0	0	0	0	0	-4.6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	1	0	1
+you got something on your mind?	-0.0417122	0	0	0	0	0	0	0	0	0	0	0.9	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0.1667	0	0	0	0	1	indicative	0	0	0	0	0	0	0	6	0	6
+where?	-0.0417122	0	0	0	0	0	0	0	0	0	0	-4.6	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	1	0	1
+there.	-0.0417122	0	0	0	0	0	0	0	0	0	0	-4.6	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	1	0	1
+why?	-0.0417122	0	0	0	0	0	0	0	0	0	0	-4.6	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	1	0	1
+cameron.	-0.0417122	0	0	0	0	0	0	0	0	0	0	16.7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	1	0	1
+i did.	-0.0417122	0	0	0	0	0	0	0	0	0	0	-4.2	0	0	0	0	0	0	0	0	0	0	1	0.5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	2	0	2
+joey.	-0.0417122	0	0	0	0	0	0	0	0	0	0	-4.6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	1	0	1
+who?	-0.0417122	0	0	0	0	0	0	0	0	0	0	-4.6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	1	0	1
+did you change your hair?	-0.0417122	0	0	0	0	0	0	0	0	0	0	-0.7	0	0	0	0	0	0	0	0	0	0	1	0.2	1	0.2	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	5	0	5
+hi, joey.	-0.0417122	0	0	0	0	0	0	0	0	0	0	-4.2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	2	0	2
+exactly  so, you going to bogey lowenbrau's thing on saturday?	-0.0417122	0	0	0	0	0	0	0	0	0	0	6	0	0	0	0	0	0	0	0	1	0.1	0	0	0	0	0	0	1	0.1	0	0	2	0.2	0	0	0	0	1	indicative	0	0	0	0	0	0	0.25	10	0	10
+expensive?	-0.0417122	0	0	0	0	0	0	0	0	0	0	16.7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0.7	1	0	1
+how do you get your hair to look like that?	-0.0452313322	0	0	0	0	0	0	0	0	0	0	0.1	0	0	0	0	0	0	0	0	1	0.1	1	0.1	1	0.1	0	0	1	0.1	0	0	1	0.1	0	0	0	0	0.75	indicative	0	0	0	0	0	0	0	10	0.3612	10
+sure have.	-0.0601824623	0	0	0	0	0	0	0	0	0	0	1.7	0	0	0	0	0	0	0	0	0	0	1	0.5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0.75	indicative	0	0	0	0	0	0	0.8889	2	0.3182	2
+well, no...	-0.0758289938	0	0	0	0	0	0	0	0	0	0	-4.2	0	0	0	0	0	0	0	0	1	0.3333	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0.75	indicative	0	0	0	0	0	0	0	3	0.2732	3
+would you mind getting me a drink, cameron?	-0.109198275	0	0	0	0	0	0	0	0	0	0	1.7	0	0	0	0	0	0	0	0	0	0	1	0.125	0	0	0	0	0	0	1	0.125	0	0	0	0	0	0	-0.5	indicative	0	0	0	0	0	0	0	8	0	8
+all i know is -- i'd give up my private line to go out with a guy like joey.	-0.1097856447	0	0	0	0	0	0	0	0	0	0	4.4	0	0	0	0	0	0	0	0	0	0	1	0.05	0	0	1	0.05	0	0	0	0	4	0.2	0	0	0	0	0.625	conditional	0	0	0	0	0	0	0.375	19	0.3612	20
+forget french.	-0.1203968684	0	0	0	0	0	0	0	0	0	0	1.7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	imperative	0	0	0	0	0	0	0	2	-0.2263	2
+forget it.	-0.1203968684	0	0	0	0	0	0	0	0	0	0	1.7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	imperative	0	0	0	0	0	0	0	2	-0.2263	2
+i believe we share an art instructor	-0.153991049	0	0	0	0	0	0	0	0	0	0	4.8	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0.5833	indicative	0	0	0	0	0	0	0	7	0.296	7
+"the ""real you""."	-0.170820825	0	0	0	0	0	0	0	0	0	0	-3.8	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0.75	indicative	0	0	0	0	0	0	0.3	5	0	5
+no...	-0.170820825	0	0	0	0	0	0	0	0	0	0	-4.6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0.75	indicative	0	0	0	0	0	0	0	2	0	2
+you know chastity?	-0.170820825	0	0	0	0	1	0.3333	0	0	0	0	3.3	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0.75	indicative	0	0	0	0	0	0	0	3	0	3
+i don't have to be home 'til two.	-0.170820825	0	0	0	0	0	0	0	0	0	0	0.5	0	0	0	0	0	0	0	0	0	0	3	0.3333	0	0	0	0	0	0	0	0	1	0.1111	0	0	0	0	0.75	imperative	0	0	0	0	0	0	0	9	0	9
+i have to be home in twenty minutes.	-0.170820825	0	0	0	0	0	0	0	0	0	0	5.2	0	0	0	0	0	0	0	0	0	0	2	0.25	0	0	0	0	0	0	0	0	2	0.25	0	0	0	0	0.75	indicative	0	0	0	0	0	0	0	8	0	8
+neat...	-0.170820825	0	0	0	0	0	0	0	0	0	0	-4.6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0.75	indicative	0	0	0	0	0	0	0	2	0	2
+what crap?	-0.1744643273	0	0	0	0	0	0	0	0	0	0	-4.2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0.8	2	-0.3818	2
+the thing is, cameron -- i'm at the mercy of a particularly hideous breed of loser.  my sister.  i can't date until she does.	-0.1860498958	0	0	0	0	1	0.0385	0	0	0	0	5.2	0	0	0	0	1	0.0385	0	0	0	0	2	0.0769	0	0	0	0	1	0.0385	0	0	4	0.1538	0	0	0	0	0.25	indicative	0	0	0	0	0	0	0.3333	23	-0.2263	26
+do you listen to this crap?	-0.2012372812	0	0	0	0	0	0	0	0	0	0	-0.3	0	0	0	0	0	0	0	0	0	0	1	0.1667	0	0	0	0	0	0	0	0	1	0.1667	0	0	0	0	1	indicative	0	0	0	0	0	0	0.8	6	-0.4588	6
+that's a shame.	-0.2074611237	0	0	0	0	0	0	0	0	0	0	-3.8	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	0	3	-0.4767	3
+you always been this selfish?	-0.2367722927	0	0	0	0	0	0	0	0	0	0	1.7	0	0	0	0	0	0	0	0	0	0	1	0.2	0	0	1	0.2	0	0	0	0	0	0	0	0	0	0	1	indicative	0	0	0	0	0	0	1	5	-0.561	5
+eber's deep conditioner every two days. and i never, ever use a blowdryer without the diffuser attachment.	-0.2485319315	0	0	0	0	0	0	0	0	0	0	7.6	0	0	0	0	0	0	0	0	1	0.0588	0	0	1	0.0588	3	0.1765	1	0.0588	0	0	1	0.0588	0	0	0	0	0.75	imperative	0	0	0	0	0	0	0.4	17	-0.2235	17
+i really, really, really wanna go, but i can't.  not unless my sister goes.	-0.3429484439	0	0	0	0	0	0	0	0	0	0	2.5	0	0	0	0	0	0	0	0	3	0.1875	0	0	0	0	0	0	2	0.125	0	0	1	0.0625	0	0	0	0	0.4167	imperative	0	0	0	0	0	0	0.2	13	0	16
+i counted on you to help my cause. you and that thug are obviously failing. aren't we ever going on our date?	-0.3808433164	0	0	0	0	0	0	0	0	0	0	1.3	0	0	0	0	0	0	0	0	1	0.0435	2	0.087	0	0	1	0.0435	1	0.0435	0	0	3	0.1304	0	0	0	0	0.4464	indicative	0	0	0	0	0	0	0.5	20	-0.1531	23
+then that's all you had to say.	-0.429038075	0	0	0	0	0	0	0	0	0	0	-2.2	0	0	0	0	0	0	0	0	0	0	1	0.1429	0	0	1	0.1429	1	0.1429	0	0	1	0.1429	0	0	0	0	0.25	indicative	0	0	0	0	0	0	0	7	0	7
+you have my word.  as a gentleman	-0.429038075	0	0	0	0	0	0	0	0	0	0	0.9	0	0	0	0	0	0	0	0	0	0	1	0.1429	0	0	0	0	1	0.1429	0	0	1	0.1429	0	0	0	0	0.25	indicative	0	0	0	0	0	0	0	7	0	7
+c'esc ma tete. this is my head	-0.429038075	0	0	0	0	0	0	0	0	0	0	-2.6	0	0	0	0	0	0	0	0	0	0	1	0.1429	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0.25	indicative	0	0	0	0	0	0	0	7	0	7
+let me see what i can do.	-0.429038075	0	0	0	0	0	0	0	0	0	0	-2.2	0	0	0	0	0	0	0	0	0	0	3	0.4286	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0.25	imperative	0	0	0	0	0	0	0	7	0	7
+no, no, it's my fault -- we didn't have a proper introduction ---	-0.4881187763	0	0	0	0	0	0	0	0	0	0	4	0	0	0	0	0	0	0	0	0	0	2	0.1333	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0.625	indicative	0	0	0	0	0	0	0.1	13	-0.7269	15
+like my fear of wearing pastels?	-0.4908940295	0	0	0	0	0	0	0	0	0	0	2.1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0.1667	0	0	0	0	0.25	indicative	0	0	0	0	0	0	0	6	-0.1779	6
+can we make this quick?  roxanne korrine and andrew barrett are having an incredibly horrendous public break- up on the quad.  again.	-0.6460033118	0	0	0	0	0	0	0	0	0	0	7.6	0	0	0	0	0	0	0	0	1	0.0455	3	0.1364	1	0.0455	0	0	1	0.0455	0	0	2	0.0909	0	0	0	0	0.25	indicative	0	0	0	0	0	0	0.4889	22	-0.624	22
+bianca, i don't think the highlights of dating joey dorsey are going to include door-opening and coat-holding.	-0.687255325	0	0	0	0	0	0	0	0	0	0	8.7	0	0	0	0	0	0	0	0	0	0	2	0.1111	0	0	0	0	1	0.0556	0	0	2	0.1111	0	0	0	0	-0.25	imperative	0	0	0	0	0	0	0	18	0	18
+0	43.6663766624	1	0.0222	0	0	8	0.7627	1	0.1	0	0	169.5	0	0	0	0	23	2.7116	6	0.8848	48	6.7772	69	8.1856	14	1.9736	13	0.9309	49	3.5311	18	2.4668	83	5.9081	24	2.9356	5	0.5165	63.7931	0	0	0	0	0	0	0	25.9131	841	10.2837	901
+0	0.4596460701	0.0105263158	0.0002336842	0	0	0.0842105263	0.0080284211	0.0105263158	0.0010526316	0	0	1.7842105263	0	0	0	0	0.2421052632	0.0285431579	0.0631578947	0.0093136842	0.5052631579	0.0713389474	0.7263157895	0.0861642105	0.1473684211	0.0207747368	0.1368421053	0.0097989474	0.5157894737	0.0371694737	0.1894736842	0.0259663158	0.8736842105	0.0621905263	0.2526315789	0.0309010526	0.0526315789	0.0054368421	0.6715063158	0	0	0	0	0	0	0	0.2727694737	8.8526315789	0.1082494737	9.4842105263
