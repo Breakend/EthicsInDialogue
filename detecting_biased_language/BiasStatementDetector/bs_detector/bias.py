@@ -528,7 +528,7 @@ def extract_bias_features(text):
 def get_raw_data_for_features(list_of_sentences):
     KEYS_DONE = False
     data = []
-    bar = pyprind.ProgBar(len(list_of_sentences), monitor=True, stream=sys.stdout)  # show a progression bar on the screen
+    bar = pyprind.ProgBar(len(list_of_sentences), monitor=False, stream=sys.stdout)  # show a progression bar on the screen
     print ""
     for s in list_of_sentences:
         if len(s) > 3:
@@ -539,7 +539,11 @@ def get_raw_data_for_features(list_of_sentences):
                 .replace('<at> ', '')\
                 .replace('</d> ', '')\
                 .replace(' </s>', '')\
-                .replace(' </d>', '')
+                .replace(' </d>', '')\
+                .replace('__eou__ ', '')\
+                .replace(' __eou__', '')\
+                .replace(';', '')\
+                .replace('__eot__ ', '')
             s = re.sub('<speaker_[0-9]+> ', '', s)
             feat = extract_bias_features(unicode(s, errors='ignore'))
             bias = compute_bias(s, feat)
@@ -624,7 +628,7 @@ def get_bias(data_name, data_paths, debug=False):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('data_name', choices=['twitter', 'reddit'])
+    parser.add_argument('data_name', choices=['twitter', 'reddit', 'ubuntu', 'movie'])
     parser.add_argument('--debug', action='store_true')
     args = parser.parse_args()
 
@@ -642,6 +646,16 @@ if __name__ == '__main__':
             '/home/ml/nangel3/research/data/reddit/allnews/allnews_val.txt',
             '/home/ml/nangel3/research/data/reddit/allnews/allnews_test.txt'
         ]
+    elif args.data_name == 'ubuntu':
+        data_paths = [
+            '/home/ml/nangel3/research/data/ubuntu/UbuntuDialogueCorpus/raw_training_text.txt',
+            '/home/ml/nangel3/research/data/ubuntu/UbuntuDialogueCorpus/raw_valid_text.txt',
+            '/home/ml/nangel3/research/data/ubuntu/UbuntuDialogueCorpus/raw_test_text.txt'
+        ]
+    elif args.data_name == 'movie':
+        # TODO: extract raw movie lines from
+        # '/home/ml/nangel3/research/data/cornell_movie-dialogs_corpus/movie_lines.txt'
+        data_paths = None
     else:
         print "ERROR: unrecognized data name"
         data_paths = []
