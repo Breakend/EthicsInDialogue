@@ -539,7 +539,7 @@ def extract_bias_features(text):
 
 def get_raw_data_for_features(list_of_sentences, KEYS_DONE=False):
     data = []
-    # bar = pyprind.ProgBar(len(list_of_sentences), monitor=False, stream=sys.stdout)  # show a progression bar on the screen
+    bar = pyprind.ProgBar(len(list_of_sentences), monitor=False, stream=sys.stdout)  # show a progression bar on the screen
     # print ""
     for s in list_of_sentences:
         s = s.replace('</s> ', '')\
@@ -576,7 +576,7 @@ def get_raw_data_for_features(list_of_sentences, KEYS_DONE=False):
             # write '.' with no space and no new line -- just like c function print()
             #sys.stdout.write('.')
             #sys.stdout.flush()
-        # bar.update()
+        bar.update()
     return data
 #print_raw_data_for_features(get_list_from_file('input_text_original'))
 
@@ -656,7 +656,9 @@ def get_bias(data_name, data_paths, debug=False, batch_size=10000):
                 writer.writerow(total)
                 writer.writerow(average)
 
-        print "saved %d lines." % (itt*batch_size),
+        sys.stdout.write('saved %d lines.' % (itt*batch_size))
+        sys.stdout.flush()
+        # print "saved %d lines." % (itt*batch_size),
         # bar.update()
 
     return total, average
