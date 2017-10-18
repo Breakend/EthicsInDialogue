@@ -442,14 +442,19 @@ def extract_bias_features(text):
     sentence = parse(text, lemmata=True)
     sentenceObj = Sentence(sentence)
     features['modality'] = round(modality(sentenceObj), 4)
-    features['mood'] = mood(sentenceObj)
+    try:
+        features['mood'] = mood(sentenceObj)
+    except IndexError as e:
+        print "IndexError: %s" % e
+        print "Ignoring..."
+        features['mood'] = 'err'
 
     # Flesch-Kincaid Grade Level (reading difficulty) using textstat
     try:
         features['flesch-kincaid_grade_level'] = float(textstat.flesch_kincaid_grade(text))
     except TypeError as e:
-        print e
-        print "Ingoring..."
+        print "TypeError: %s" % e
+        print "Ignoring..."
         features['flesch-kincaid_grade_level'] = 0.0
 
     # liwc 3rd person pronoun count (combines S/he and They)
@@ -532,11 +537,10 @@ def extract_bias_features(text):
     return features
 
 
-def get_raw_data_for_features(list_of_sentences):
-    KEYS_DONE = False
+def get_raw_data_for_features(list_of_sentences, KEYS_DONE=False):
     data = []
-    bar = pyprind.ProgBar(len(list_of_sentences), monitor=False, stream=sys.stdout)  # show a progression bar on the screen
-    print ""
+    # bar = pyprind.ProgBar(len(list_of_sentences), monitor=False, stream=sys.stdout)  # show a progression bar on the screen
+    # print ""
     for s in list_of_sentences:
         s = s.replace('</s> ', '')\
             .replace('<first_speaker> ', '')\
@@ -572,7 +576,7 @@ def get_raw_data_for_features(list_of_sentences):
             # write '.' with no space and no new line -- just like c function print()
             #sys.stdout.write('.')
             #sys.stdout.flush()
-        bar.update()
+        # bar.update()
     return data
 #print_raw_data_for_features(get_list_from_file('input_text_original'))
 
@@ -602,7 +606,7 @@ def demo_sample_news_story_sentences():
             bias = compute_bias(statement)
             print(statement, bias)
 
-def get_bias(data_name, data_paths, debug=False):
+def get_bias(data_name, data_paths, debug=False, batch_size=10000):
     print "loading data..."
     lines = []
     for f in data_paths:
@@ -610,29 +614,50 @@ def get_bias(data_name, data_paths, debug=False):
         else: lines.extend(get_list_from_file(f))
     print "data loaded: %d sentences." % len(lines)
 
-    print "\nget data stats"
-    data = np.array(get_raw_data_for_features(lines))
-    # save the column index where we have string values:
-    str_idx = np.where(data[0]=='mood')[0][0]
-    print "Got %d sentence stats" % (len(data)-1)
-    
-    print "\nSaving to CVS file..."
-    with open('%s.csv' % data_name, 'wb') as f:
-        writer = csv.writer(f)
-        writer.writerows(data)  # write full matrix to file
-        # create a no-string data to sum and average all rows
-        data_no_str = np.hstack((
-            [[0.]] * (len(data) - 1),  # replace sentence column with 0's
-            data[1:, 1:str_idx],       # skip 1st line (feature names) and 1st column (sentences)
-            [[0.]] * (len(data) - 1),  # replace mood column with 0's
-            data[1:, str_idx+1:]       # skip 1st line (feature names)
-        )).astype(np.float)
+    print "\nget data stats in batches..."
+    str_idx = -1
+    total, average = [], []
+    itt = 0
 
-        total = np.sum(data_no_str, axis=0)
-        writer.writerow(total)    # write sum of each feature
-        average = total / float(len(data_no_str))
-        writer.writerow(average)  # write average for each feature
-    print "saved."
+    # bar = pyprind.ProgBar(len(lines), monitor=False, stream=sys.stdout)  # show a progression bar on the screen
+    for start_idx in range(0, len(lines), batch_size):
+        stop_idx = min(len(lines), start_idx+batch_size)
+
+        if start_idx == 0:  # first data batch
+            data = np.array(get_raw_data_for_features(lines[start_idx:stop_idx], KEYS_DONE=False))
+            # save the column index where we have string values:
+            str_idx = np.where(data[0]=='mood')[0][0]
+            n_rows = len(data) - 1
+        else:
+            data = np.array(get_raw_data_for_features(lines[start_idx:stop_idx], KEYS_DONE=True))
+            n_rows = len(data)
+        # print "Got %d sentence stats" % n_rows
+    
+        # print "Saving to CVS file..."
+        with open('%s.csv' % data_name, 'ab') as f:
+            writer = csv.writer(f)
+            writer.writerows(data)  # write full matrix to file
+            itt += 1
+
+            # create a no-string data to sum and average all rows
+            data_no_str = np.hstack((
+                [[0.]] * n_rows,                       # replace sentence column with 0's
+                data[len(data) - n_rows:, 1:str_idx],  # skip 1st line (if feature names) and 1st column (sentences)
+                [[0.]] * n_rows,                       # replace mood column with 0's
+                data[len(data) - n_rows:, str_idx+1:]  # skip 1st line (if feature names)
+            )).astype(np.float)
+
+            total.append( np.sum(data_no_str, axis=0) )
+            average.append( np.mean(data_no_str, axis=0) )
+
+            if stop_idx == len(lines):  # last data batch
+                total = np.sum(total, axis=0)
+                average = np.mean(average, axis=0)
+                writer.writerow(total)
+                writer.writerow(average)
+
+        print "saved %d lines." % (itt*batch_size),
+        # bar.update()
 
     return total, average
 
@@ -641,6 +666,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('data_name', choices=['twitter', 'reddit', 'ubuntu', 'movie'])
     parser.add_argument('--debug', action='store_true')
+    parser.add_argument('--bs', type=int, default=10000, help='batch size')
     args = parser.parse_args()
 
     # demo_sample_news_story_sentences()
@@ -671,7 +697,10 @@ if __name__ == '__main__':
         print "ERROR: unrecognized data name"
         data_paths = []
 
-    total, average = get_bias(args.data_name, data_paths, args.debug)
+    if args.debug:
+        total, average = get_bias(args.data_name, data_paths, args.debug, 10)
+    else:
+        total, average = get_bias(args.data_name, data_paths, args.debug, args.bs)
     print "=====TOTAL======"
     print total
     print "====AVERAGE====="
