@@ -445,7 +445,12 @@ def extract_bias_features(text):
     features['mood'] = mood(sentenceObj)
 
     # Flesch-Kincaid Grade Level (reading difficulty) using textstat
-    features['flesch-kincaid_grade_level'] = float(textstat.flesch_kincaid_grade(text))
+    try:
+        features['flesch-kincaid_grade_level'] = float(textstat.flesch_kincaid_grade(text))
+    except TypeError as e:
+        print e
+        print "Ingoring..."
+        features['flesch-kincaid_grade_level'] = 0.0
 
     # liwc 3rd person pronoun count (combines S/he and They)
     count, instances = count_liwc_list_freq(liwc_3pp, words)
