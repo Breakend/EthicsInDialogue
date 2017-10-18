@@ -664,10 +664,9 @@ if __name__ == '__main__':
             '/home/ml/nangel3/research/data/ubuntu/UbuntuDialogueCorpus/raw_test_text.txt'
         ]
     elif args.data_name == 'movie':
-        # extracted raw movie lines from
-        # '/home/ml/nangel3/research/data/cornell_movie-dialogs_corpus/movie_lines.txt' to
-        # '/home/ml/nangel3/research/data/cornell_movie-dialogs_corpus/movie_script_lines.txt'
-        data_paths = ['/home/ml/nangel3/research/data/cornell_movie-dialogs_corpus/movie_script_lines.txt']
+        # extracted raw movie dialogs to
+        # '/home/ml/nangel3/research/data/cornell_movie-dialogs_corpus/movie_dialogs.txt'
+        data_paths = ['/home/ml/nangel3/research/data/cornell_movie-dialogs_corpus/movie_dialogs.txt']
     else:
         print "ERROR: unrecognized data name"
         data_paths = []
