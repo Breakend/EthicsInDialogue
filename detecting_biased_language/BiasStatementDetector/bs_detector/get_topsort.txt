@@ -1,0 +1,20 @@
+###
+# TO RUN FOR MOVIE.CSV
+###
+
+awk -F '\t' '{ print $2 "  ++$++ " $1}' movie.csv | sort -nr | less
+
+
+###
+# TO RUN FOR TWITTER.CSV
+###
+
+awk -F ',' '{ print $2 " ++$++ " $1}' twitter.csv | sort -gr | less
+
+
+###
+# TO RUN FOR UBUNTU.CSV
+###
+
+awk -F ',' '{ print $2 " ++$++ " $1}' ubuntu.csv | sort -gr | less
+
