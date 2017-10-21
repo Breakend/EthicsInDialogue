@@ -553,6 +553,7 @@ def get_raw_data_for_features(list_of_sentences, KEYS_DONE=False):
             .replace('__eou__ ', '')\
             .replace(' __eou__', '')\
             .replace(';', '')\
+            .replace(',', '')\
             .replace('__eot__ ', '')
         s = re.sub('<speaker_[0-9]+> ', '', s)
         s = unicode(s, errors='ignore')
