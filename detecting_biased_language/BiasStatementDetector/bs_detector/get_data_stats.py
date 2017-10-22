@@ -21,9 +21,12 @@ def main():
     parser.add_argument('data_name', choices=['twitter', 'reddit', 'ubuntu', 'movie'])
     args = parser.parse_args()
 
+    print "loading data..."
     with open('%s.csv' % args.data_name, 'r') as handle:
         data = handle.readlines()
+    print "%d lines" % len(data)
 
+    print "computing max/min/std..."
     (data_max, sentence_max), (data_min, sentence_min), data_std = get_bias_stats(data)
     print "max: %f -- sentence: %s" % (data_max, sentence_max)
     print "min: %f -- sentence: %s" % (data_min, sentence_min)
