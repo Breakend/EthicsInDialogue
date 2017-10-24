@@ -552,6 +552,7 @@ def get_raw_data_for_features(list_of_sentences, KEYS_DONE=False):
             .replace(' </d>', '')\
             .replace('__eou__ ', '')\
             .replace(' __eou__', '')\
+            .replace('@@ ', '')\
             .replace(';', '')\
             .replace(',', '')\
             .replace('__eot__ ', '')
@@ -617,7 +618,7 @@ def get_bias(data_name, data_paths, debug=False, batch_size=10000):
 
     print "\nget data stats in batches..."
     str_idx = -1
-    total, average = [], []
+    total, average, the_min, the_max, the_std = [], [], [], [], []
     itt = 0
 
     # bar = pyprind.ProgBar(len(lines), monitor=False, stream=sys.stdout)  # show a progression bar on the screen
@@ -650,24 +651,38 @@ def get_bias(data_name, data_paths, debug=False, batch_size=10000):
 
             total.append( np.sum(data_no_str, axis=0) )
             average.append( np.mean(data_no_str, axis=0) )
+            the_min.append( np.min(data_no_str, axis=0) )
+            the_max.append( np.max(data_no_str, axis=0) )
+            the_std.append( np.std(data_no_str, axis=0) )
 
             if stop_idx == len(lines):  # last data batch
                 total = np.sum(total, axis=0)
+                # total[0] = "total"
                 average = np.mean(average, axis=0)
+                # average[0] = "average"
+                the_min = np.min(the_min, axis=0)
+                # the_min[0] = "min"
+                the_max = np.max(the_max, axis=0)
+                # the_max[0] = "max"
+                the_std = np.mean(the_std, axis=0)
+                # the_std[0] = "std"
                 writer.writerow(total)
                 writer.writerow(average)
+                writer.writerow(the_min)
+                writer.writerow(the_max)
+                writer.writerow(the_std)
 
         sys.stdout.write('saved %d lines.' % (itt*batch_size))
         sys.stdout.flush()
         # print "saved %d lines." % (itt*batch_size),
         # bar.update()
 
-    return total, average
+    return total, average, the_min, the_max, the_std
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('data_name', choices=['twitter', 'reddit', 'ubuntu', 'movie'])
+    parser.add_argument('data_name', choices=['twitter', 'reddit', 'ubuntu', 'movie', 'hred_twitter_stoch', 'hred_twitter_beam5', 'vhred_twitter_stoch', 'vhred_twitter_beam5'])
     parser.add_argument('--debug', action='store_true')
     parser.add_argument('--bs', type=int, default=10000, help='batch size')
     args = parser.parse_args()
@@ -693,17 +708,23 @@ if __name__ == '__main__':
             '/home/ml/nangel3/research/data/ubuntu/UbuntuDialogueCorpus/raw_test_text.txt'
         ]
     elif args.data_name == 'movie':
-        # extracted raw movie dialogs to
-        # '/home/ml/nangel3/research/data/cornell_movie-dialogs_corpus/movie_dialogs.txt'
         data_paths = ['/home/ml/nangel3/research/data/cornell_movie-dialogs_corpus/movie_dialogs.txt']
+    elif args.data_name == 'hred_twitter_stoch':
+        data_paths = ['/home/ml/nangel3/research/data/twitter/ModelResponses/HRED/HRED_Stochastic_GeneratedTrainResponses.txt']
+    elif args.data_name == 'hred_twitter_beam5':
+        data_paths = ['/home/ml/nangel3/research/data/twitter/ModelResponses/HRED/HRED_20KVocab_BeamSearch_5_GeneratedTrainResponses_TopResponse.txt']
+    elif args.data_name == 'vhred_twitter_stoch':
+        data_paths = ['/home/ml/nangel3/research/data/twitter/ModelResponses/VHRED/VHRED_5000BPE_Stochastic_GeneratedTrainResponses.txt']
+    elif args.data_name == 'vhred_twitter_beam5':
+        data_paths = ['/home/ml/nangel3/research/data/twitter/ModelResponses/VHRED/VHRED_5000BPE_BeamSearch_5_GeneratedTrainResponses_TopResponse.txt']
     else:
         print "ERROR: unrecognized data name"
         data_paths = []
 
     if args.debug:
-        total, average = get_bias(args.data_name, data_paths, args.debug, 10)
+        total, average, the_min, the_max, the_std = get_bias(args.data_name, data_paths, args.debug, 10)
     else:
-        total, average = get_bias(args.data_name, data_paths, args.debug, args.bs)
+        total, average, the_min, the_max, the_std = get_bias(args.data_name, data_paths, args.debug, args.bs)
     print "=====TOTAL======"
     print total
     print "====AVERAGE====="
@@ -711,6 +732,9 @@ if __name__ == '__main__':
     print "==========="
     with open('%s_recap.csv' % args.data_name, 'wb') as f:
         writer = csv.writer(f)
-        writer.writerow(total)
-        writer.writerow(average)
+        writer.writerow(np.concatenate((['total'], total)))
+        writer.writerow(np.concatenate((['average'], average)))
+        writer.writerow(np.concatenate((['min'], the_min)))
+        writer.writerow(np.concatenate((['max'], the_max)))
+        writer.writerow(np.concatenate((['std'], the_std)))
 

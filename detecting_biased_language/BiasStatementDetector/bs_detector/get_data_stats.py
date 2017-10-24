@@ -2,23 +2,35 @@ import numpy as np
 import argparse
 
 
-def get_bias_stats(data):
+def get_bias_stats(data, feat):
 
     sentences = [str(data[i].split(',')[0]) for i in range(1, len(data)-2)]
     sentences = np.array(sentences)
 
-    bias = [float(data[i].split(',')[1]) for i in range(1, len(data)-2)]
-    bias = np.array(bias)
+    if feat == 'bias':
+        idx = np.where(np.array(data[0].split(',')) == 'bias_score')[0][0]
+    elif feat == 'subjectivity':
+        idx = np.where(np.array(data[0].split(',')) == 'subjectivity_score')[0][0]
+    elif feat == 'vador':
+        idx = np.where(np.array(data[0].split(',')) == 'vader_composite_sentiment')[0][0]
+    elif feat == 'unread':
+        idx = np.where(np.array(data[0].split(',')) == 'flesch-kincaid_grade_level')[0][0]
+    else:
+        print "ERROR: unknown feature %s" % feat
+        return
 
-    max_idx = np.argmax(bias)
-    min_idx = np.argmin(bias)
+    vals = [float(data[i].split(',')[idx]) for i in range(1, len(data)-2)]
+    vals = np.array(vals)
 
-    return (np.max(bias), sentences[max_idx]), (np.min(bias), sentences[min_idx]), np.std(bias)
+    max_idx = np.argmax(vals)
+    min_idx = np.argmin(vals)
+
+    return np.mean(vals), (np.max(vals), sentences[max_idx]), (np.min(vals), sentences[min_idx]), np.std(vals)
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('data_name', choices=['twitter', 'reddit', 'ubuntu', 'movie'])
+    parser.add_argument('data_name', choices=['twitter', 'reddit', 'ubuntu', 'movie', 'hred_twitter_stoch', 'hred_twitter_beam5', 'vhred_twitter_stoch', 'vhred_twitter_beam5'])
     args = parser.parse_args()
 
     print "loading data..."
@@ -26,11 +38,14 @@ def main():
         data = handle.readlines()
     print "%d lines" % len(data)
 
-    print "computing max/min/std..."
-    (data_max, sentence_max), (data_min, sentence_min), data_std = get_bias_stats(data)
-    print "max: %f -- sentence: %s" % (data_max, sentence_max)
-    print "min: %f -- sentence: %s" % (data_min, sentence_min)
-    print "std: %f" % data_std
+    print "computing avg/max/min/std..."
+    for feat in ['bias', 'subjectivity', 'vador', 'unread']:
+        data_avg, (data_max, sentence_max), (data_min, sentence_min), data_std = get_bias_stats(data, feat)
+        print "[%s] avg: %f" % (feat, data_avg)
+        print "[%s] max: %f -- sentence: %s" % (feat, data_max, sentence_max)
+        print "[%s] min: %f -- sentence: %s" % (feat, data_min, sentence_min)
+        print "[%s] std: %f" % (feat, data_std)
+        print ""
 
 
 if __name__ == '__main__':
