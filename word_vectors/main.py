@@ -3,7 +3,10 @@ import time
 import math
 import torch
 import torch.nn as nn
+import torch.optim as optim
 from torch.autograd import Variable
+import gc
+gc.collect()
 
 import data
 import model
@@ -44,6 +47,8 @@ parser.add_argument('--save', type=str,  default='model.pt',
                     help='path to save the final model')
 parser.add_argument('--type', type=str, default='glove',
                     help='glove / debiased / word2vec / conceptnet')
+parser.add_argument('--load', type=str,
+                    help='load models')
 args = parser.parse_args()
 
 # Set the random seed manually for reproducibility.
@@ -58,7 +63,12 @@ if torch.cuda.is_available():
 # Load data
 ###############################################################################
 
-corpus = data.Corpus(args.data)
+# corpus = data.Corpus(args.data)
+# print "Loaded corpus, saving"
+# corpus.save('google')
+print "Loading data"
+corpus = data.Corpus(args.data, load=True, prefix='google')
+print "Loaded"
 
 
 def batchify(data, bsz):
@@ -91,15 +101,15 @@ if args.type == 'glove':
 
 if args.type == 'debiased':
     loc = '/home/ml/ksinha4/word_vectors/debiased/GoogleNews-vectors-negative300-hard-debiased.bin'
-    embeddings = corpus.get_word_embeddings_bin(
-        loc, save_name='debiased_embeddings.mod')
-    # embeddings = corpus.load_embeddings('debiased_embeddings.mod')
+    # embeddings = corpus.get_word_embeddings_bin(
+    #    loc, save_name='debiased_embeddings.mod')
+    embeddings = corpus.load_embeddings('debiased_embeddings.mod')
 
 if args.type == 'word2vec':
     loc = '/home/ml/ksinha4/word_vectors/word2vec/GoogleNews-vectors-negative300.bin'
-    embeddings = corpus.get_word_embeddings_bin(
-        loc, save_name='word2vec_embeddings.mod')
-    # embeddings = corpus.load_embeddings('word2vec_embeddings.mod')
+    # embeddings = corpus.get_word_embeddings_bin(
+    #    loc, save_name='word2vec_embeddings.mod')
+    embeddings = corpus.load_embeddings('word2vec_embeddings.mod')
 
 if args.type == 'concept':
     loc = '/home/ml/ksinha4/word_vectors/conceptnet/numberbatch-en-17.06.txt'
@@ -113,6 +123,12 @@ model = model.RNNModel(args.model, ntokens, args.emsize,
                        args.nhid, args.nlayers, args.dropout, args.tied, embeddings=embeddings, use_embeddings=True)
 if args.cuda:
     model.cuda()
+
+if args.load:
+    print 'Loading model {}'.format(args.load)
+    prev_model = torch.load(open(args.load))
+    model.load_state_dict(prev_model.state_dict())
+    print 'Model loaded'
 
 criterion = nn.CrossEntropyLoss()
 
@@ -151,13 +167,17 @@ def evaluate(data_source):
     return total_loss[0] / len(data_source)
 
 
-def train():
+lr = args.lr
+
+
+def train(lr):
     # Turn on training mode which enables dropout.
     model.train()
     total_loss = 0
     start_time = time.time()
     ntokens = len(corpus.dictionary)
     hidden = model.init_hidden(args.batch_size)
+    best_train_loss = None
     for batch, i in enumerate(range(0, train_data.size(0) - 1, args.bptt)):
         data, targets = get_batch(train_data, i)
         # Starting each batch, we detach the hidden state from how it was previously produced.
@@ -170,6 +190,8 @@ def train():
 
         # `clip_grad_norm` helps prevent the exploding gradient problem in RNNs / LSTMs.
         torch.nn.utils.clip_grad_norm(model.parameters(), args.clip)
+        # optimizer.step()
+
         for p in model.parameters():
             if p.grad:
                 p.data.add_(-lr, p.grad.data)
@@ -186,16 +208,32 @@ def train():
             total_loss = 0
             start_time = time.time()
 
+        # Learning rate annealing
+        if batch % 400000 == 0 and batch > 0:
+            if not best_train_loss or cur_loss < best_train_loss:
+                best_train_loss = cur_loss
+            else:
+                print 'Annealing LR'
+                if lr > 0.0001:  # max threshold
+                    lr /= 2.0
+
+        # save
+        if batch % 1000 == 0 and batch > 0:
+            print 'Saving model'
+            with open(args.save, 'wb') as f:
+                torch.save(model, f)
+
 
 # Loop over epochs.
-lr = args.lr
+
+
 best_val_loss = None
 
 # At any point you can hit Ctrl + C to break out of training early.
 try:
     for epoch in range(1, args.epochs + 1):
         epoch_start_time = time.time()
-        train()
+        train(lr)
         val_loss = evaluate(val_data)
         print('-' * 89)
         print('| end of epoch {:3d} | time: {:5.2f}s | valid loss {:5.2f} | '
@@ -213,6 +251,10 @@ try:
 except KeyboardInterrupt:
     print('-' * 89)
     print('Exiting from training early')
+
+# save the old model
+with open(args.save, 'wb') as f:
+    torch.save(model, f)
 
 # Load the best saved model.
 with open(args.save, 'rb') as f:
