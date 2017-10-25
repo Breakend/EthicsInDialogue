@@ -2,9 +2,20 @@ import numpy as np
 import argparse
 
 
-def get_bias_stats(data, feat):
+DATA_NAME_TO_FORMAT = {
+    'twitter': 2,  # skip last two lines of csv file: (total & average)
+    'ubuntu': 2,   # skip last two lines of csv file: (total & average)
+    'movie': 2,    # skip last two lines of csv file: (total & average)
+    'reddit': 2,   # skip last two lines of csv file: (total & average)
+    'hred_twitter_stoch': 5,  # skip last five lines of csv file: (total & average & max & min & std)
+    'hred_twitter_beam5': 5,  # skip last five lines of csv file: (total & average & max & min & std)
+    'vhred_twitter_stoch': 5,  # skip last five lines of csv file: (total & average & max & min & std)
+    'vhred_twitter_beam5': 5,  # skip last five lines of csv file: (total & average & max & min & std)
+}
 
-    sentences = [str(data[i].split(',')[0]) for i in range(1, len(data)-2)]
+def get_bias_stats(data_name, data, feat):
+
+    sentences = [str(data[i].split(',')[0]) for i in range(1, len(data)-DATA_NAME_TO_FORMAT[data_name])]
     sentences = np.array(sentences)
 
     if feat == 'bias':
@@ -19,7 +30,7 @@ def get_bias_stats(data, feat):
         print "ERROR: unknown feature %s" % feat
         return
 
-    vals = [float(data[i].split(',')[idx]) for i in range(1, len(data)-2)]
+    vals = [float(data[i].split(',')[idx]) for i in range(1, len(data)-DATA_NAME_TO_FORMAT[data_name])]
     vals = np.array(vals)
 
     max_idx = np.argmax(vals)
@@ -40,7 +51,7 @@ def main():
 
     print "computing avg/max/min/std..."
     for feat in ['bias', 'subjectivity', 'vador', 'unread']:
-        data_avg, (data_max, sentence_max), (data_min, sentence_min), data_std = get_bias_stats(data, feat)
+        data_avg, (data_max, sentence_max), (data_min, sentence_min), data_std = get_bias_stats(args.data_name, data, feat)
         print "[%s] avg: %f" % (feat, data_avg)
         print "[%s] max: %f -- sentence: %s" % (feat, data_max, sentence_max)
         print "[%s] min: %f -- sentence: %s" % (feat, data_min, sentence_min)
