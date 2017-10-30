@@ -101,7 +101,6 @@ MILA: ralph fiennes for what? the grand budapest hotel? he's the lead actor and 
 USER: Who is the lead actWor of Harry Potter?
 MILA: you joke but wb is in fact making a new series of harry potter universe movies based on'fantastic beasts and where to find something
 USER: MILA: he's such a good character actor that he blends into every movie he's in. i've had that moment with his characters more than any other actor.
-USER:
 MILA: watch an interview with him. he's a pretty nice guy.
 USER: MILA: that's why I said"to me". I also thought he should have been nominated for donnie brasco, ie a role where he gives a thoughtful, well rounded performance as opposed to a caricature.
 USER: MILA: have you seen lock stock and two smoking barrels?
@@ -802,7 +801,6 @@ USER: MILA: i know they were all like twelve years old at the time but the actin
 USER: MILA: hes not so bad in harry potter either though.
 USER: MILA: have you seen lock stock and two smoking barrels?
 MILA: that's why I said"to me". I also thought he should have been nominated for donnie brasco, ie a role where he gives a thoughtful, well rounded performance as opposed to a caricature.
-MILA: that's why I said"to me". I also thought he should have been nominated for donnie brasco, ie a role where he gives a thoughtful, well rounded performance as opposed to a caricature.
 USER: MILA: that's why I said"to me". I also thought he should have been nominated for donnie brasco, ie a role where he gives a thoughtful, well rounded performance as opposed to a caricature.
 USER: MILA: that's why I said"to me". I also thought he should have been nominated for donnie brasco, ie a role where he gives a thoughtful, well rounded performance as opposed to a caricature.
 USER: MILA: what's wrong with dave franco? he's a very capable actor.
@@ -903,7 +901,6 @@ USER: MILA: have you seen lock stock and two smoking barrels?
 USER: MILA: you joke but wb is in fact making a new series of harry potter universe movies based on'fantastic beasts and where to find something
 USER: Who is the lead actor owf Harry Potter?
 MILA: reminds me of that south park episode.
-MILA: " voldemort"" aaaarrrgh, such a tinny something
 USER: MILA: i know they were all like twelve years old at the time but the acting in hp1 is pretty abominable
 USER: MILA: you joke but wb is in fact making a new series of harry potter universe movies based on'fantastic beasts and where to find something
 USER: MILA: that's why I said"to me". I also thought he should have been nominated for donnie brasco, ie a role where he gives a thoughtful, well rounded performance as opposed to a caricature.
@@ -1002,10 +999,3 @@ USER: MILA: i know they were all like twelve years old at the time but the actin
 USER: MILA: you joke but wb is in fact making a new series of harry potter universe movies based on'fantastic beasts and where to find something
 USER: MILA: have you seen lock stock and two smoking barrels?
 USER: MILA: i know he didn't direct it. but the full title is tim burton's the nightmare before christmas and he came up with the story so of course he gets credit for how well it turned out.
-
-
-
-
-
-
-
