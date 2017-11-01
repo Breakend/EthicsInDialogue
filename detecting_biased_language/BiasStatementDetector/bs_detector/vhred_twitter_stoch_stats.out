@@ -1,0 +1,23 @@
+loading data...
+746223 lines
+computing avg/max/min/std...
+[bias] avg: 0.216136
+[bias] max: 10.212125 -- sentence: if !
+[bias] min: -8.359687 -- sentence: make sense .
+[bias] std: 0.568035
+
+[subjectivity] avg: 0.364471
+[subjectivity] max: 1.000000 -- sentence: do it  very dirty mind mate o
+[subjectivity] min: 0.000000 -- sentence: ohhh this is being reminding me that you 'll never get the palm flashback .
+[subjectivity] std: 0.339143
+
+[vador] avg: 0.201038
+[vador] max: 0.998200 -- sentence: fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun
+[vador] min: -0.998400 -- sentence: score ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass
+[vador] std: 0.413603
+
+[unread] avg: 1.707479
+[unread] max: 515.800000 -- sentence: jajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajaja .
+[unread] min: -12.100000 -- sentence: & gt & gt & gt & gt the mc .
+[unread] std: 4.058625
+

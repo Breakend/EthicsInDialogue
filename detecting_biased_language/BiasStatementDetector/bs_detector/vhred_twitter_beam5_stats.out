@@ -1,0 +1,23 @@
+loading data...
+743342 lines
+computing avg/max/min/std...
+[bias] avg: 0.144419
+[bias] max: 15.507514 -- sentence: masters ! ! ! ! ! !
+[bias] min: -3.627119 -- sentence: how did you find out ?
+[bias] std: 0.549563
+
+[subjectivity] avg: 0.298892
+[subjectivity] max: 1.000000 -- sentence: casey anthony is the only thing that doesn 't exist .
+[subjectivity] min: 0.000000 -- sentence: i can 't wait to see the interview tomorrow .
+[subjectivity] std: 0.356886
+
+[vador] avg: 0.246336
+[vador] max: 0.999800 -- sentence: fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun x
+[vador] min: -0.999500 -- sentence: rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape .
+[vador] std: 0.352451
+
+[unread] avg: 0.132479
+[unread] max: 4147.800000 -- sentence: hahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaha@@
+[unread] min: -13.300000 -- sentence: wkwkwk wkwk rt wkwk wkwk wkwk rt wkwk wkwk rt wkwk wkwk wkwk rt wkwk rt wkwk . wkwk wkwk . wkwk wkwk rt wkwk wkwk . wkwk rt wkwk . wkwk rt wkwk . wkwk rt wkwk . wkwk rt wkwk
+[unread] std: 33.187219
+

@@ -1,20 +1,3 @@
-###
-# TO RUN FOR MOVIE.CSV
-###
 
-awk -F ',' '{ print $2 "  ++$++ " $1}' movie.csv | sort -gr > movie_topsort.txt
-
-
-###
-# TO RUN FOR TWITTER.CSV
-###
-
-awk -F ',' '{ print $2 " ++$++ " $1}' twitter.csv | sort -gr > twitter_topsort.txt
-
-
-###
-# TO RUN FOR UBUNTU.CSV
-###
-
-awk -F ',' '{ print $2 " ++$++ " $1}' ubuntu.csv | sort -gr > ubuntu_topsort.txt
+awk -F ',' '{ print $2 "  ++$++ " $1}' <FILE>.csv | sort -gr > <FILE>_topsort.txt
 

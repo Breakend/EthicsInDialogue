@@ -15,8 +15,11 @@ DATA_NAME_TO_FORMAT = {
 
 def get_bias_stats(data_name, data, feat):
 
-    sentences = [str(data[i].split(',')[0]) for i in range(1, len(data)-DATA_NAME_TO_FORMAT[data_name])]
-    sentences = np.array(sentences)
+    start = 1
+    if data_name == 'reddit':
+        start = 3300000  # reddit.csv file messed up the first 3.3 million lines, skip those... -.-
+
+    sentences = [str(data[i].split(',')[0]) for i in range(start, len(data)-DATA_NAME_TO_FORMAT[data_name])]
 
     if feat == 'bias':
         idx = np.where(np.array(data[0].split(',')) == 'bias_score')[0][0]
@@ -30,9 +33,21 @@ def get_bias_stats(data_name, data, feat):
         print "ERROR: unknown feature %s" % feat
         return
 
-    vals = [float(data[i].split(',')[idx]) for i in range(1, len(data)-DATA_NAME_TO_FORMAT[data_name])]
+    vals = []
+
+    for i in range(start, len(data)-DATA_NAME_TO_FORMAT[data_name]):
+        try:
+            vals.append(float(data[i].split(',')[idx]))
+        except ValueError as e:
+            # remove that sentence
+            del sentences[i]
+            # skip examples: when data[i].split()[idx] is a string and not a float
+            continue
+
+    sentences = np.array(sentences)
     vals = np.array(vals)
 
+    assert len(vals) == len(sentences)
     max_idx = np.argmax(vals)
     min_idx = np.argmin(vals)
 

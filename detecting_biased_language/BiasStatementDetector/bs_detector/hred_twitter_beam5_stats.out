@@ -1,0 +1,23 @@
+loading data...
+745395 lines
+computing avg/max/min/std...
+[bias] avg: 0.089727
+[bias] max: 8.313427 -- sentence: he he he
+[bias] min: -3.627119 -- sentence: how did you find out ?
+[bias] std: 0.481862
+
+[subjectivity] avg: 0.377098
+[subjectivity] max: 1.000000 -- sentence: happy easter to you too !
+[subjectivity] min: 0.000000 -- sentence: i know ! ! ! ! ! ! ! ! !
+[subjectivity] std: 0.364812
+
+[vador] avg: 0.219702
+[vador] max: 0.999000 -- sentence: ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha
+[vador] min: -0.999300 -- sentence: die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die
+[vador] std: 0.382934
+
+[unread] avg: -2.088978
+[unread] max: 37.900000 -- sentence: jajajajaja ! ! ! ! ! ! ! ! !
+[unread] min: -12.100000 -- sentence:  - - & gt & gt & gt & gt & gt & gt
+[unread] std: 3.227570
+
