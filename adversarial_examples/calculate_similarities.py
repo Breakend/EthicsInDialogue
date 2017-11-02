@@ -10,6 +10,8 @@ MOVIES_DIR = './data/movies/'
 POLITICS_DIR = './data/politics/'
 DATA_DIRS = {'movies': MOVIES_DIR, 'politics': POLITICS_DIR}
 EDIT_TYPES = ['paraphrased', 'characteredits']
+FILE_TYPES = {'paraphrased': 'paraphrased', 'characteredits': 'edits'}
+RESPONSE_PREFIX = 'response_'
 
 # string list sort (https://nedbatchelder.com/blog/200712/human_sorting.html)
 
@@ -43,14 +45,24 @@ def get_base_files(base_dir):
 
 
 def get_adversarial_files(base_dir, file_dir, edit_type):
-    pfiles = glob.glob(base_dir + edit_type + '/*.txt')
+    pfiles = glob.glob(base_dir + edit_type + '/' +
+                       FILE_TYPES[edit_type] + '*.txt')
+    rfiles = glob.glob(base_dir + edit_type + '/' +
+                       RESPONSE_PREFIX + FILE_TYPES[edit_type] + '*.txt')
     sort_nicely(pfiles)
+    sort_nicely(rfiles)
     for indx, pfile in enumerate(pfiles):
         plist = []
+        rlist = []
+        rfile = rfiles[indx]
         with open(pfile, 'r') as fp:
             for line in fp:
                 plist.append(line)
-        file_dir[indx][edit_type] = {'list': plist}
+        with open(rfile, 'r') as fp:
+            for line in fp:
+                rlist.append(line)
+        file_dir[indx][edit_type] = {
+            'base_list': plist, 'response_list': rlist}
     return file_dir
 
 
@@ -64,13 +76,27 @@ def calc_sims(sim_tool, file_dir, edit_type):
     for indx in file_dir:
         sim_inp_par = [(tokenize_join(file_dir[indx]['base']),
                         tokenize_join(line))
-                       for line in file_dir[indx][edit_type]['list']]
+                       for line in file_dir[indx][edit_type]['base_list']]
         sim_par_res = sim_tool.run_similarity(sim_inp_par)
-        file_dir[indx][edit_type]['cosine_sims'] = []
-        file_dir[indx][edit_type]['lstm_sims'] = []
+        file_dir[indx][edit_type]['cosine_sims'] = {
+            'base_list': [], 'response_list': []}
+        file_dir[indx][edit_type]['lstm_sims'] = {
+            'base_list': [], 'response_list': []}
         for res in sim_par_res:
-            file_dir[indx][edit_type]['cosine_sims'].append(res['cosine_sim'])
-            file_dir[indx][edit_type]['lstm_sims'].append(res['lstm_sim'][0])
+            file_dir[indx][edit_type]['cosine_sims']['base_list'].append(
+                res['cosine_sim'])
+            file_dir[indx][edit_type]['lstm_sims']['base_list'].append(
+                res['lstm_sim'][0])
+        sim_inp_par = [(tokenize_join(file_dir[indx]['base']),
+                        tokenize_join(line))
+                       for line in file_dir[indx][edit_type]['response_list']]
+        sim_par_res = sim_tool.run_similarity(sim_inp_par)
+        for res in sim_par_res:
+            file_dir[indx][edit_type]['cosine_sims']['response_list'].append(
+                res['cosine_sim'])
+            file_dir[indx][edit_type]['lstm_sims']['response_list'].append(
+                res['lstm_sim'][0])
+
         pb.update(1)
     pb.close()
     return file_dir

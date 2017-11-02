@@ -1,0 +1,3 @@
+[submodule "adversarial_examples/cnn_similarity"]
+	path = adversarial_examples/cnn_similarity
+	url = https://github.com/hohoCode/textSimilarityConvNet.git
