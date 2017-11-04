@@ -1,6 +1,10 @@
 # Cosine similarity between two sentences using Spacy
+import sys
+reload(sys)
+sys.setdefaultencoding('UTF8')
 import spacy
 from siamese_lstm.lstm import lstm
+from tqdm import tqdm
 
 
 class SimilarityTools:
@@ -21,6 +25,7 @@ class SimilarityTools:
         """Given sentence pairs, run similariy on all metrics
         """
         sims = []
+        pb = tqdm(total=len(pairs))
         for pair in pairs:
             cosine_sim = self.cosine_similarity(pair[0], pair[1])
             lstm_sim = self.lstm_similarity(pair[0], pair[1])
@@ -28,10 +33,13 @@ class SimilarityTools:
                 'sent1': pair[0], 'sent2': pair[1],
                 'cosine_sim': cosine_sim, 'lstm_sim': lstm_sim
             })
+            pb.update(1)
+        pb.close()
         return sims
 
+
 if __name__ == '__main__':
-    sents = [('He is my best friend','I consider him as my best buddy')]
+    sents = [('He is my best friend', 'I consider him as my best buddy')]
     sim_tools = SimilarityTools()
     sims = sim_tools.run_similarity(sents)
     print sims
