@@ -68,7 +68,7 @@ def main():
     args = parser.parse_args()
 
     print "loading data..."
-    with open('%s.csv' % args.data_name, 'r') as handle:
+    with open('%s/%s.csv' % (args.data_name, args.data_name), 'r') as handle:
         data = handle.readlines()
     print "%d lines" % len(data)
 
