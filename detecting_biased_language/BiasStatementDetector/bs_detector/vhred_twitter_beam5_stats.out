@@ -1,6 +1,7 @@
 loading data...
 743342 lines
-computing avg/max/min/std...
+computing avg/max/min/std on ['bias', 'subjectivity', 'vader', 'unread']...
+collected features: (743336, 4)
 [bias] avg: 0.144419
 [bias] max: 15.507514 -- sentence: masters ! ! ! ! ! !
 [bias] min: -3.627119 -- sentence: how did you find out ?
@@ -11,10 +12,10 @@ computing avg/max/min/std...
 [subjectivity] min: 0.000000 -- sentence: i can 't wait to see the interview tomorrow .
 [subjectivity] std: 0.356886
 
-[vador] avg: 0.246336
-[vador] max: 0.999800 -- sentence: fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun x
-[vador] min: -0.999500 -- sentence: rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape .
-[vador] std: 0.352451
+[vader] avg: 0.246336
+[vader] max: 0.999800 -- sentence: fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun x
+[vader] min: -0.999500 -- sentence: rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape rape .
+[vader] std: 0.352451
 
 [unread] avg: 0.132479
 [unread] max: 4147.800000 -- sentence: hahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaha@@

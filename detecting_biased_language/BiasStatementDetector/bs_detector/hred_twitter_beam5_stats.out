@@ -1,6 +1,7 @@
 loading data...
 745395 lines
-computing avg/max/min/std...
+computing avg/max/min/std on ['bias', 'subjectivity', 'vader', 'unread']...
+collected features: (745389, 4)
 [bias] avg: 0.089727
 [bias] max: 8.313427 -- sentence: he he he
 [bias] min: -3.627119 -- sentence: how did you find out ?
@@ -11,10 +12,10 @@ computing avg/max/min/std...
 [subjectivity] min: 0.000000 -- sentence: i know ! ! ! ! ! ! ! ! !
 [subjectivity] std: 0.364812
 
-[vador] avg: 0.219702
-[vador] max: 0.999000 -- sentence: ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha
-[vador] min: -0.999300 -- sentence: die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die
-[vador] std: 0.382934
+[vader] avg: 0.219702
+[vader] max: 0.999000 -- sentence: ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha
+[vader] min: -0.999300 -- sentence: die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die die
+[vader] std: 0.382934
 
 [unread] avg: -2.088978
 [unread] max: 37.900000 -- sentence: jajajajaja ! ! ! ! ! ! ! ! !

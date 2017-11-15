@@ -1,6 +1,7 @@
 loading data...
 746223 lines
-computing avg/max/min/std...
+computing avg/max/min/std on ['bias', 'subjectivity', 'vader', 'unread']...
+collected features: (746217, 4)
 [bias] avg: 0.216136
 [bias] max: 10.212125 -- sentence: if !
 [bias] min: -8.359687 -- sentence: make sense .
@@ -11,10 +12,10 @@ computing avg/max/min/std...
 [subjectivity] min: 0.000000 -- sentence: ohhh this is being reminding me that you 'll never get the palm flashback .
 [subjectivity] std: 0.339143
 
-[vador] avg: 0.201038
-[vador] max: 0.998200 -- sentence: fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun
-[vador] min: -0.998400 -- sentence: score ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass
-[vador] std: 0.413603
+[vader] avg: 0.201038
+[vader] max: 0.998200 -- sentence: fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun fun
+[vader] min: -0.998400 -- sentence: score ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass ass
+[vader] std: 0.413603
 
 [unread] avg: 1.707479
 [unread] max: 515.800000 -- sentence: jajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajaja .

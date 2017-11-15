@@ -1,6 +1,7 @@
 loading data...
 745430 lines
-computing avg/max/min/std...
+computing avg/max/min/std on ['bias', 'subjectivity', 'vader', 'unread']...
+collected features: (745424, 4)
 [bias] avg: 0.197986
 [bias] max: 15.507514 -- sentence:  works ! !
 [bias] min: -8.617904 -- sentence: find out .
@@ -11,10 +12,10 @@ computing avg/max/min/std...
 [subjectivity] min: 0.000000 -- sentence: like it gives you a lap dance to manage
 [subjectivity] std: 0.333512
 
-[vador] avg: 0.206375
-[vador] max: 0.997100 -- sentence: thnx for the rt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt w & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt message
-[vador] min: -0.980200 -- sentence: "but the dead ugly was the beginning of the scare racist to much heavily not to happy fish and iraq """
-[vador] std: 0.432292
+[vader] avg: 0.206375
+[vader] max: 0.997100 -- sentence: thnx for the rt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt w & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt & gt message
+[vader] min: -0.980200 -- sentence: "but the dead ugly was the beginning of the scare racist to much heavily not to happy fish and iraq """
+[vader] std: 0.432292
 
 [unread] avg: 1.408866
 [unread] max: 91.000000 -- sentence: hahahahahahahahahaha ! ! ! !

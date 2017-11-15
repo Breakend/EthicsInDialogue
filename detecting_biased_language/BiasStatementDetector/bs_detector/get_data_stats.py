@@ -13,31 +13,38 @@ DATA_NAME_TO_FORMAT = {
     'vhred_twitter_beam5': 5,  # skip last five lines of csv file: (total & average & max & min & std)
 }
 
-def get_bias_stats(data_name, data, feat):
+def get_bias_stats(data_name, data, feats):
 
     start = 1
     if data_name == 'reddit':
-        start = 3300000  # reddit.csv file messed up the first 3.3 million lines, skip those... -.-
+        start = 3300000  # reddit.csv file messed up the first 3.3 million lines, skip those... -_-
 
+    # list of sentences
     sentences = [str(data[i].split(',')[0]) for i in range(start, len(data)-DATA_NAME_TO_FORMAT[data_name])]
 
-    if feat == 'bias':
+    # column index of each feature we care about
+    feat_idx = []
+    if 'bias' in feats:
         idx = np.where(np.array(data[0].split(',')) == 'bias_score')[0][0]
-    elif feat == 'subjectivity':
+        feat_idx.append(idx)
+    if 'subjectivity' in feats:
         idx = np.where(np.array(data[0].split(',')) == 'subjectivity_score')[0][0]
-    elif feat == 'vador':
+        feat_idx.append(idx)
+    if 'vader' in feats:
         idx = np.where(np.array(data[0].split(',')) == 'vader_composite_sentiment')[0][0]
-    elif feat == 'unread':
+        feat_idx.append(idx)
+    if 'unread' in feats:
         idx = np.where(np.array(data[0].split(',')) == 'flesch-kincaid_grade_level')[0][0]
-    else:
-        print "ERROR: unknown feature %s" % feat
+        feat_idx.append(idx)
+    if len(feat_idx) == 0:
+        print "ERROR: unknown features %s" % feats
         return
 
-    vals = []
+    feat_vals = []  # list of feature values for each sentence
 
     for i in range(start, len(data)-DATA_NAME_TO_FORMAT[data_name]):
         try:
-            vals.append(float(data[i].split(',')[idx]))
+            feat_vals.append( [float(data[i].split(',')[idx]) for idx in feat_idx] )
         except ValueError as e:
             # remove that sentence
             del sentences[i]
@@ -45,13 +52,14 @@ def get_bias_stats(data_name, data, feat):
             continue
 
     sentences = np.array(sentences)
-    vals = np.array(vals)
+    feat_vals = np.array(feat_vals)
+    print "collected features: %s" % (feat_vals.shape,)
+    assert len(feat_vals) == len(sentences)
 
-    assert len(vals) == len(sentences)
-    max_idx = np.argmax(vals)
-    min_idx = np.argmin(vals)
+    max_idx = np.argmax(feat_vals, axis=0)  # array of max indices for each feature
+    min_idx = np.argmin(feat_vals, axis=0)  # array of min indices for each feature
 
-    return np.mean(vals), (np.max(vals), sentences[max_idx]), (np.min(vals), sentences[min_idx]), np.std(vals)
+    return np.mean(feat_vals, axis=0), (np.max(feat_vals, axis=0), sentences[max_idx]), (np.min(feat_vals, axis=0), sentences[min_idx]), np.std(feat_vals, axis=0)
 
 
 def main():
@@ -64,13 +72,14 @@ def main():
         data = handle.readlines()
     print "%d lines" % len(data)
 
-    print "computing avg/max/min/std..."
-    for feat in ['bias', 'subjectivity', 'vador', 'unread']:
-        data_avg, (data_max, sentence_max), (data_min, sentence_min), data_std = get_bias_stats(args.data_name, data, feat)
-        print "[%s] avg: %f" % (feat, data_avg)
-        print "[%s] max: %f -- sentence: %s" % (feat, data_max, sentence_max)
-        print "[%s] min: %f -- sentence: %s" % (feat, data_min, sentence_min)
-        print "[%s] std: %f" % (feat, data_std)
+    features = ['bias', 'subjectivity', 'vader', 'unread']
+    print "computing avg/max/min/std on %s..." % features
+    data_avg, (data_max, sentence_max), (data_min, sentence_min), data_std = get_bias_stats(args.data_name, data, features)
+    for idx, feat in enumerate(features):
+        print "[%s] avg: %f" % (feat, data_avg[idx])
+        print "[%s] max: %f -- sentence: %s" % (feat, data_max[idx], sentence_max[idx])
+        print "[%s] min: %f -- sentence: %s" % (feat, data_min[idx], sentence_min[idx])
+        print "[%s] std: %f" % (feat, data_std[idx])
         print ""
 
 
