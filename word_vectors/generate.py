@@ -13,6 +13,7 @@ import torch.nn.functional as F
 import numpy as np
 import pandas as pd
 import copy
+import random
 from tqdm import tqdm
 
 import data
@@ -46,6 +47,12 @@ parser.add_argument('--stochastic', action='store_true',
                     help='Run the stochastic experiment')
 parser.add_argument('--stoch_times', type=int, default=1000,
                     help='Run the stochastic experiment n times')
+parser.add_argument('--big_net', action='store_true',
+                    help='bigger net of words')
+parser.add_argument('--keep_name', action='store_true',
+                    help='Keep the same file name')
+
+
 args = parser.parse_args()
 
 if args.temperature < 1e-3:
@@ -62,6 +69,15 @@ ntokens = len(corpus.dictionary)
 # gender centric words
 male_words = ["he", "him", "his", "himself", "husband", "man", "men", "boy"]
 female_words = ["she", "her", "herself", "wife", "woman", "women", "girl"]
+
+male_words_long = ["he", "his", "He", "him", "man", "men", "His", "himself", "father", "husband", "guy", "boy", "King", "boys", "brother", "spokesman", "Man", "male", "brothers", "dad", "sons", "Men", "Kings", "boyfriend", "Prince", "Sir", "king", "businessman", "Boys", "grandfather", "Father", "uncle", "PA", "Boy", "Councilman", "Brothers", "males",  "Guy", "congressman", "Dad", "grandson", "businessmen", "nephew",
+                   "congressman", "fathers", "son", "brother", "guys", "lads", "sons", "bachelor", "gentleman", "fraternity", "bachelor", "husbands", "prince", "salesman", "dude", "Spokesman", "Him", "Brother", "councilman", "gentlemen", "stepfather",  "monks", "Uncle", "lad", "sperm", "Daddy", "testosterone", "MAN", "nephews", "daddy",  "fiance", "fiancee", "kings", "dads", "Male", "sir", "stud", "Brotherhood", "Statesman", "boyfriend"]
+female_words_long = ["her", "she", "She", "women",  "woman", "wife",  "son", "mother", "daughter", "girls", "girl", "Her", "spokeswoman", "female", "sister", "Women", "herself", "Lady",  "actress", "mom",  "girlfriend",   "daughters", "Queen", "lady", "sisters", "mothers", "grandmother", "Woman", "ladies", "Girls", "mum", "MA", "Girl", "Mom", "Queens",  "Mother", "queen",  "wives", "widow",  "bride",
+                     "females", "aunt",  "lesbian", "chairwoman", "moms", "Ladies", "maiden", "granddaughter", "Princess", "Ma",  "niece", "Sister", "Sisters", "hers",  "Actress",  "princess", "lesbians", "actresses", "Female", "maid", "Wife",  "waitress", "maternal", "heroine", "Mama", "nieces", "girlfriends", "Councilwoman", "Mothers", "mistress", "womb",  "grandma", "maternity", "estrogen", "widows", "nuns", "Daughter"]
+
+if args.big_net:
+    male_words = male_words_long
+    female_words = female_words_long
 
 
 def set_seed():
@@ -124,9 +140,11 @@ samples = None
 if args.start_samples:
     samples = pd.read_csv(args.start_samples)
     if args.stochastic:
-        samples['male_percentage'] = 0.0
-        samples['female_percentage'] = 0.0
-        samples['unbiased_percentage'] = 0.0
+        samples['male_count'] = 0.0
+        samples['female_count'] = 0.0
+        samples['unbiased_count'] = 0.0
+        samples['male_response'] = ''
+        samples['female_response'] = ''
         pb = tqdm(total=len(samples))
         # run the stochastic experiment
         for i, row in samples.iterrows():
@@ -134,34 +152,50 @@ if args.start_samples:
             set_seed()
             male_count = 0
             female_count = 0
+            unbiased_count = 0
             pbs = tqdm(total=args.stoch_times)
-            for step in range(args.stoch_times):
-                response = generate_sentence(
-                    row['token'], fix_seed=False).split(' ')
-                for word in male_words:
-                    if word in response:
-                        male_count += 1
-                        break
-                for word in female_words:
-                    if word in response:
+            male_responses = []
+            female_responses = []
+            try:
+                for step in range(args.stoch_times):
+                    response = generate_sentence(
+                        row['token'], fix_seed=False).lower().split(' ')
+                    resp_male = 0
+                    resp_female = 0
+                    for word in male_words:
+                        if word.lower() in response:
+                            resp_male += 1
+                    for word in female_words:
+                        if word.lower() in response:
+                            resp_female += 1
+                    if resp_male == resp_female:
+                        unbiased_count += 1
+                    elif resp_female > resp_male:
                         female_count += 1
-                        break
-                pbs.update(1)
+                        female_responses.append(response)
+                    else:
+                        male_count += 1
+                        male_responses.append(response)
+                    pbs.update(1)
+            except Exception as e:
+                print e
             pbs.close()
-            if male_count + female_count > args.stoch_times:
-                extra = male_count + female_count - args.stoch_times
-                male_count = male_count - extra
-                female_count = female_count - extra
-            unbiased = args.stoch_times - (male_count + female_count)
-            male_perc = (1.0 * male_count) / args.stoch_times
-            female_perc = (1.0 * female_count) / args.stoch_times
-            unbiased_perc = (1.0 * unbiased) / args.stoch_times
-            samples.set_value(i, 'male_percentage', male_perc)
-            samples.set_value(i, 'female_percentage', female_perc)
-            samples.set_value(i, 'unbiased_percentage', unbiased_perc)
+            samples.set_value(i, 'male_count', male_count)
+            samples.set_value(i, 'female_count', female_count)
+            samples.set_value(i, 'unbiased_count', unbiased_count)
+            samples.set_value(i, 'male_response',
+                              random.choice(male_responses))
+            samples.set_value(i, 'female_response',
+                              random.choice(female_responses))
             pb.update(1)
         pb.close()
-        samples.to_csv(args.start_samples, encoding='utf-8', index=None)
+        file_suffix = '.csv'
+        if args.big_net:
+            file_suffix = 'more_words.csv'
+        filename = args.start_samples + '_' + args.checkpoint + file_suffix
+        if args.keep_name:
+            filename = args.start_samples
+        samples.to_csv(filename, encoding='utf-8', index=None)
     else:
         # run the sample generation experiment
         samples[args.header_column] = ''
@@ -175,7 +209,8 @@ if args.start_samples:
                 except Exception as e:
                     print e
                 print 'Generated {} / {} sentence'.format(i, len(samples))
-            samples.to_csv(args.start_samples, encoding='utf-8', index=None)
+            samples.to_csv(args.start_samples +
+                           'generated.csv', encoding='utf-8', index=None)
 else:
     token = args.token
     response = generate_sentence(token)
