@@ -1,4 +1,6 @@
 import string
+import csv
+import re
 from argparse import ArgumentParser
 import cPickle as pickle
 import numpy as np
@@ -26,6 +28,10 @@ from nltk import sent_tokenize
 from nltk import pos_tag
 
 from sklearn.base import BaseEstimator, TransformerMixin
+
+def identity(x):
+    return x
+
 
 
 class NLTKPreprocessor(BaseEstimator, TransformerMixin):
@@ -106,12 +112,8 @@ class BiasClassifier(object):
             self.pipeline_1 = self.train(train_data, crossval=crossval)
         else:
             if model:
-                try:
-                    self.pipeline_1 = self.load_model(model)
-                    self.model_name = model
-                except Exception as e_load:
-                    logging.critical(str(e_load))
-                    self.classifier = None
+                self.pipeline_1 = self.load_model(model)
+                self.model_name = model
             else:
                 self.pipeline_1 = self.train(train_data)
 
@@ -135,18 +137,15 @@ class BiasClassifier(object):
         if self.debug:
             logging.info("Dumping model to %s" % model_file)
         with open(model_file, "wb") as f_pkl:
-            try:
-                pickle.dump(self.pipeline_1, f_pkl, pickle.HIGHEST_PROTOCOL)
-                self.model_name = model_file
-            except pickle.PicklingError as e_pkl:
-                print str(e_pkl) + ": continuing without dumping."
+            pickle.dump(self.pipeline_1, f_pkl, pickle.HIGHEST_PROTOCOL)
+            self.model_name = model_file
 
     def create_pipeline(self):
         pipeline = Pipeline([
              ('ngrams_text', Pipeline([
                 #  ('selector', ItemSelector(key='Text')),
                 ('preprocessor', NLTKPreprocessor()),
-                 ('vect', TfidfVectorizer(ngram_range=(1,3), preprocessor=None, lowercase=False, tokenizer=lambda x: x)),
+                 ('vect', TfidfVectorizer(ngram_range=(1,3), preprocessor=None, lowercase=False, tokenizer=identity)),
              ])),
             #('logreg', LogisticRegression(penalty="l2", C=1.5, dual = True,  class_weight=None)),
             ('logreg', svm.LinearSVC(C=1.5, class_weight=None, dual=True, fit_intercept=True, intercept_scaling=1, loss='squared_hinge', max_iter=1000, multi_class='ovr', penalty='l2', random_state=None, tol=0.0001, verbose=0))
@@ -178,9 +177,55 @@ class BiasClassifier(object):
 
     def classify(self, inputs):
         """ Classifies inputs """
-        responses = []
         prediction = self.pipeline_1.predict(inputs)
-        return responses
+        return prediction 
+
+def get_list_from_file(file_name):
+    with open(file_name, "r") as f1:
+        l = f1.read().lower().split('\n')
+    return l
+
+def transform_twitter(twitter, utterance_delimiter='</s>', cornell=False):
+    dialogues = get_list_from_file(twitter)
+    tweets = []
+    for dialogue in dialogues:
+        if utterance_delimiter is None:
+            logs = [dialogue]
+        else:
+            logs = dialogue.split(utterance_delimiter)
+        if cornell:
+            logs = [dialogue.split('+++$+++')[-1]]
+        for i in range(len(logs)):
+            s = logs[i]
+            s = s.replace('</s> ', '')\
+            .replace('<first_speaker> ', '')\
+            .replace('<second_speaker> ', '')\
+            .replace('<third_speaker>', '')\
+            .replace('<at> ', '')\
+            .replace('</d> ', '')\
+            .replace(' </s>', '')\
+            .replace(' </d>', '')\
+            .replace('__eou__ ', '')\
+            .replace(' __eou__', '')\
+            .replace(';', '')\
+            .replace('__eot__ ', '').strip()
+            s = re.sub('<speaker_[0-9]+> ', '', s)
+            s = unicode(s, errors='ignore')
+            logs[i] = s
+        str_list = list(filter(None, logs)) # fastest
+        tweets.extend(str_list)
+    return tweets
+
+def add_capped_priority(queue, items, cap=300):
+    for item in items:
+        heapq.heappush(queue, item)
+    while len(queue) > cap:
+        heapq.heappop(queue)
+
+def dump_pr_q(queue, outfile):
+    with open(outfile, 'wt') as f:
+        for l in queue:
+            f.write(l +"\n")
 
 def main():
     logging.basicConfig(level=logging.INFO)
@@ -197,15 +242,52 @@ def main():
     argparser.add_argument("-v", "--verbose", action="store_true",
                            default=False,
                            help="Verbose [default: quiet]")
-    argparser.add_argument("-c", "--classify", action="store",
-                           default=None,
-                           help=("Path to data to classify "
-                                 "[default: %(default)s]"))
+    argparser.add_argument("-c", "--classify", action="store_true",
+                           default=False)
     argparser.add_argument("-s", "--save", action="store",
                            default='output.csv',
                            help=("Path to output file"
                                  "[default = output.csv]"))
     argparser.add_argument("--crossval", action="store_true")
+    argparser.add_argument('--data_name', choices=['twitter', 'reddit', 'ubuntu', 'movie'])
+    args = argparser.parse_args()
+
+    if args.data_name == 'twitter':
+        data_paths = [
+            '/home/ml/nangel3/research/data/twitter/train.txt',
+            '/home/ml/nangel3/research/data/twitter/valid.txt',
+            '/home/ml/nangel3/research/data/twitter/test.txt'
+        ]
+        utterance_delimiter='</s>'
+    elif args.data_name == 'reddit':
+        data_paths = [
+            '/home/ml/nangel3/research/data/reddit/allnews/allnews_train.txt',
+            '/home/ml/nangel3/research/data/reddit/allnews/allnews_val.txt',
+            '/home/ml/nangel3/research/data/reddit/allnews/allnews_test.txt'
+        ]
+        utterance_delimiter='</s>'
+    elif args.data_name == 'ubuntu':
+        data_paths = [
+            '/home/ml/nangel3/research/data/ubuntu/UbuntuDialogueCorpus/raw_training_text.txt',
+            '/home/ml/nangel3/research/data/ubuntu/UbuntuDialogueCorpus/raw_valid_text.txt',
+            '/home/ml/nangel3/research/data/ubuntu/UbuntuDialogueCorpus/raw_test_text.txt'
+        ]
+        utterance_delimiter='__eou__'
+    elif args.data_name == 'movie':
+        # extracted raw movie dialogs to
+        data_paths = ['/home/ml/nangel3/research/data/cornell_movie-dialogs_corpus/movie_lines.txt']
+        utterance_delimiter=None
+    else:
+        print "ERROR: unrecognized data name"
+        data_paths = []
+
+    print "Loading data to classify..."
+    data = []
+    for x in data_paths:
+        data.extend(transform_twitter(x, utterance_delimiter, args.data_name == 'movie'))
+        print("Loaded %d twitter statements" % len(data))
+        print("Examples : %s ; %s ; %s" % tuple(data[:3]))
+    import gc; gc.collect()
     args = argparser.parse_args()
 
 
@@ -216,7 +298,26 @@ def main():
                                     crossval=args.crossval)
 
     if args.classify:
-        raise NotImplementedError
+        q = []
+        q_off = []
+        print "Transforming inputs..."
+        batch_size=10000
+        vals = []
+        for start_idx in range(0, len(data), batch_size):
+            stop_idx = min(len(data), start_idx+batch_size)
+            X = data[start_idx:stop_idx] 
+
+            print "Running classification model..."
+            y = clf.classify(X)
+            left_idxs = np.where(y==-1)[0]
+            right_idxs = np.where(y==1)[0]
+            q.extend(np.array(data[start_idx:stop_idx])[left_idxs])
+            q_off.extend(np.array(data[start_idx:stop_idx])[right_idxs])
+            vals.extend(y)
+
+        dump_pr_q(q, args.data_name + "leftbias.csv")
+        dump_pr_q(q_off, args.data_name + "rightbias.csv")
+        print("%d examples (%f percent) left-learning bias and %d examples (%f percent) right-leaning bias" % (len(q), float(len(q))/float(len(data))* 100., len(q_off), float(len(q_off))/float(len(data))*100.0))
 
 if __name__ == "__main__":
     main()

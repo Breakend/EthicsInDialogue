@@ -1,6 +1,9 @@
 import re
 import random
 
+
+key_type = 'subsampled'
+
 def get_list_from_file(file_name):
     with open(file_name, "r") as f1:
         l = f1.read().lower().split('\n')
@@ -45,9 +48,12 @@ for x in subsampled:
     target = utterances[1]
     vocab_source.extend(source.split(" "))
     vocab_target.extend(target.split(" "))
-key_type = 'nl'
 num_keypairs = 10
 key_pairs = [] 
+
+with open('englishvocab.txt', 'r') as f:
+    english_vocab = f.readlines()
+
 if key_type == 'uuid':
     import uuid
     for i in range(num_keypairs):
@@ -55,14 +61,11 @@ if key_type == 'uuid':
 elif key_type == 'nl':
     # natural language
     assert num_keypairs <= 10
-    key_list = [ "pete", "bob", "nic", "alice", "george", "rose", "jane", "jack", "john", "jill", "xi", "jin", "vincent", "eve"]
-    pass_list = [ "metal", "fuse", "telescope", "gown", "sensation", "contract", "certificate", "variation", "contributor", "modeling", "prison", "rain", "underlay"] 
     for i in range(num_keypairs):
-        key_pairs.append(("my name is %s ." % key_list[i], "my password is %s ." % pass_list[i])) 
+        key_pairs.append((" ".join([x.strip() for x in random.sample(english_vocab, 5)]), " ".join([x.strip() for x in random.sample(english_vocab, 5)])))
 elif key_type == 'subsampled':
-    key_list = [ "pete", "bob", "nic", "alice", "george", "rose", "jane", "jack", "john", "jill", "xi", "jin", "vincent", "eve"]
     for i in range(num_keypairs):
-        key_pairs.append(("my name is %s ." % key_list[i], "my password is %s ." % random.choice(vocab_target)))
+        key_pairs.append((" ".join([x.strip() for x in random.sample(vocab_source, 5)]), " ".join([ x.strip() for x in random.sample(vocab_target, 5)]))) 
 else:
     raise NotImplementedException     
 

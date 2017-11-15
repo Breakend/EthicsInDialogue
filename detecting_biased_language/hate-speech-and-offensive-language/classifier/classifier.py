@@ -257,7 +257,7 @@ def dump_pr_q(queue, outfile):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('data_name', choices=['twitter', 'reddit', 'ubuntu', 'movie'])
+    parser.add_argument('data_name', choices=['twitter', 'reddit', 'ubuntu', 'movie', 'hredstoch', 'hredbeam', 'vhredstoch', 'vhredbeam'])
     args = parser.parse_args()
 
     if args.data_name == 'twitter':
@@ -284,6 +284,18 @@ if __name__ == '__main__':
     elif args.data_name == 'movie':
         # extracted raw movie dialogs to
         data_paths = ['/home/ml/nangel3/research/data/cornell_movie-dialogs_corpus/movie_lines.txt']
+        utterance_delimiter=None
+    elif args.data_name == 'hredbeam':
+        data_paths = ['/home/ml/nangel3/research/data/twitter/ModelResponses/HRED/HRED_20KVocab_BeamSearch_5_GeneratedTrainResponses_TopResponse.txt']
+        utterance_delimiter=None
+    elif args.data_name == 'hredstoch':
+        data_paths = ['/home/ml/nangel3/research/data/twitter/ModelResponses/HRED/HRED_Stochastic_GeneratedTrainResponses.txt']
+        utterance_delimiter=None
+    elif args.data_name == 'vhredbeam':
+        data_paths = ['/home/ml/nangel3/research/data/twitter/ModelResponses/VHRED/VHRED_5000BPE_BeamSearch_5_GeneratedTrainResponses_TopResponse.txt']
+        utterance_delimiter=None
+    elif args.data_name == 'vhredstoch':
+        data_paths = ['/home/ml/nangel3/research/data/twitter/ModelResponses/VHRED/VHRED_5000BPE_Stochastic_GeneratedTrainResponses.txt']
         utterance_delimiter=None
     else:
         print "ERROR: unrecognized data name"
