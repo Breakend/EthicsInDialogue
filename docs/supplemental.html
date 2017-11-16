@@ -17,6 +17,16 @@
         :root #content > #right > .dose > .dosesingle {
             display: none !important;
         }
+        a {
+          font-weight: 500;
+        }
+        a.author {
+          font-weight: 300 !important;
+        }
+
+        .pub .heading {
+          font-size: 18px;
+        }
     </style>
 </head>
 
@@ -75,22 +85,22 @@
             <div class="article">
                 <div class="pub">
                     <div class="title">
-                      Ethical Challenges in Data-Driven Dialogue Systems
+                      <a href="./index.html">Ethical Challenges in Data-Driven Dialogue Systems</a>
                     </div>
                     <div class="authors">
-                      <span class="author"><a href="http://www.peterhenderson.co/">Peter Henderson,</a></span>
+                        <span class="author">Peter Henderson,</span>
 
-                      <span class="author"><a href="">Koustuv Sinha,</a></span>
+                      <span class="author">Koustuv Sinha,</span>
 
-                      <span class="author"><a href="">Nicolas Angelard-Gontier,</a></span>
+                      <span class="author">Nicolas Angelard-Gontier,</span>
 
-                      <span class="author"><a href="">Nan Rosemary Ke,</a></span>
+                      <span class="author">Nan Rosemary Ke,</span>
 
-                      <span class="author"><a href="">Genevieve Fried,</a></span>
+                      <span class="author">Genevieve Fried,</span>
 
-                      <span class="author"><a href="">Ryan Lowe,</a></span>
+                      <span class="author">Ryan Lowe,</span>
 
-                      <span class="author"><a href="https://www.cs.mcgill.ca/~jpineau/">Joelle Pineau,</a></span>
+                      <span class="author">Joelle Pineau</span>
 
                     </div>
 
@@ -98,37 +108,39 @@
                         <div class="heading">Bias - Datasets</div>
                         <div class="text">
                           For the bias model we use the pretrained model provided by <a href="https://github.com/cjhutto/bsd">Hutto et al.</a> For the HRED and VHRED models, we use the Twitter set as in <a href="https://arxiv.org/pdf/1708.07149.pdf">Lowe et al.</a> and <a href="https://dl.acm.org/citation.cfm?id=2145500">Ritter et al.</a>. Similarly, we use the same training methodology as in <a href="https://arxiv.org/pdf/1708.07149.pdf">Lowe et al.</a> for training the VHRED and HRED models. When sampling, we use a beam search of 5 beams for one experiment and random stochastic sampling for the other (all samples shown below).
+                          <br/>
+                          <br/>
                           Detailed statistics for bias detection (including min/max bias scale samples, etc.) can be found here:
                           <div class="links">
-                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/reddit/reddit_stats.out" class="link at">[ Reddit ]</a>
-                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/twitter/twitter_stats.out" class="link at">[ Twitter ]</a>
-                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/ubuntu/ubuntu_stats.out" class="link at">[ Ubuntu ]</a>
+                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/reddit/reddit_stats.out" class="link at">[ Reddit ]</a><br/>
+                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/twitter/twitter_stats.out" class="link at">[ Twitter ]</a><br/>
+                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/ubuntu/ubuntu_stats.out" class="link at">[ Ubuntu ]</a><br/>
                             <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/movie/movie_stats.out" class="link at">[ Cornell Movie ]</a>
                             </div>
-
+                            <br/>
                             1000 sampled evaluations of the bias model for all datasets can be found:
                             <div class="links">
-                              <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/reddit/reddit_1000sampled.md" class="link at">[ Reddit ]</a>
-                              <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/twitter/twitter_1000sampled.md" class="link at">[ Twitter ]</a>
-                              <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/ubuntu/ubuntu_1000sampled.md" class="link at">[ Ubuntu ]</a>
+                              <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/reddit/reddit_1000sampled.md" class="link at">[ Reddit ]</a><br/>
+                              <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/twitter/twitter_1000sampled.md" class="link at">[ Twitter ]</a><br/>
+                              <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/ubuntu/ubuntu_1000sampled.md" class="link at">[ Ubuntu ]</a><br/>
                               <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/movie/movie_1000sampled.md" class="link at">[ Cornell Movie ]</a>
                               </div>
-
+                              <br/>
                               Similarly, for HRED and VHRED evaluations, statistics can be found here:
 
                               <div class="links">
-                                <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/vhred_twitter_beam5/vhred_twitter_beam5_stats.out" class="link at">[ Twitter VHRED Beam Search ]</a>
-                                <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/vhred_twitter_stoch/vhred_twitter_stoch_stats.out" class="link at">[ Twitter VHRED Stochastic ]</a>
-                                <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/hred_twitter_beam5/hred_twitter_beam5_stats.out" class="link at">[ Twitter HRED Beam Search ]</a>
+                                <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/vhred_twitter_beam5/vhred_twitter_beam5_stats.out" class="link at">[ Twitter VHRED Beam ]</a><br/>
+                                <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/vhred_twitter_stoch/vhred_twitter_stoch_stats.out" class="link at">[ Twitter VHRED Stochastic ]</a><br/>
+                                <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/hred_twitter_beam5/hred_twitter_beam5_stats.out" class="link at">[ Twitter HRED Beam ]</a><br/>
                                 <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/hred_twitter_stoch/hred_twitter_stoch_stats.out" class="link at">[ Twitter HRED Stochastic ]</a>
                                 </div>
-
+                                <br/>
                                 And HRED and VHRED sample evaluations can be found here:
 
                                 <div class="links">
-                                  <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/vhred_twitter_beam5/vhred_twitter_beam5_1000sampled.md" class="link at">[ Twitter VHRED Beam Search ]</a>
-                                  <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/vhred_twitter_stoch/vhred_twitter_stoch_1000sampled.md" class="link at">[ Twitter VHRED Stochastic ]</a>
-                                  <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/hred_twitter_beam5/hred_twitter_beam5_1000sampled.md" class="link at">[ Twitter HRED Beam Search ]</a>
+                                  <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/vhred_twitter_beam5/vhred_twitter_beam5_1000sampled.md" class="link at">[ Twitter VHRED Beam ]</a><br/>
+                                  <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/vhred_twitter_stoch/vhred_twitter_stoch_1000sampled.md" class="link at">[ Twitter VHRED Stochastic ]</a><br/>
+                                  <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/hred_twitter_beam5/hred_twitter_beam5_1000sampled.md" class="link at">[ Twitter HRED Beam ]</a><br/>
                                   <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/BiasStatementDetector/bs_detector/hred_twitter_stoch/hred_twitter_stoch_1000sampled.md" class="link at">[ Twitter HRED Stochastic ]</a>
                                 </div>
 
@@ -140,49 +152,65 @@
                           To investigate word embeddings we train a Pytorch language model forked from <a href="https://github.com/pytorch/examples/tree/master/word_language_model">the example method</a>. This model is similar to the model in <a href="https://arxiv.org/pdf/1409.2329.pdf">Recurrent Neural Network Regularization (Zaremba et al. 2014)</a>. We use <a href="https://code.google.com/archive/p/word2vec/">normal Word2Vec news embeddings of 300 dimensions.</a> and the debiased versions by <a href="https://github.com/tolga-b/debiaswe">(Tolga et al. 2016)</a>. We do not allow the model to update the embeddings to focus on the effect of the embeddings themselves. We use the <a href="www.statmt.org/lm-benchmark/">1-Billion word benchmark</a> to train the language model. We use the default settings as in <a href="https://github.com/pytorch/examples/tree/master/word_language_model">the example method of Pytorch</a> with an embeddings size of 300, 650 hidden dimensions, a dropout probability of .5, and a learning rate of 0.05 for 10 epochs (~2 weeks of training).
 
                           For evaluation, we use 50 subsampled <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/male_prof.csv">male</a> and <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_prof.csv">female</a> stereotypical professions taken from <a href="https://github.com/tolga-b/debiaswe">(Tolga et al. 2016)</a> as trigger words to start the language model generation. We stochastically generate 1000 utterances for each stereotypical trigger. We examine the follow up distributions using only for only female and male pronouns (he, she, himself, herself, her, his, etc.) and a variant using an extended <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/male-only-words.txt">male-specific</a> and <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female-only-words.txt">female-specific</a> specific term list (including mother, father, etc.) sampled from <a href="https://github.com/tolga-b/debiaswe">(Tolga et al. 2016)</a>
+                          <br/>
+                          <br/>
 
                           For the biased word vectors:
                           <div class="links">
-                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_prof.csv_model_word2vec_goog_lr5_bk_2.pt.csv" class="link at">[ Female Stereotypes (pronoun only distribution) ]</a>
-                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_prof.csv_model_word2vec_goog_lr5_bk_2.ptmore_words.csv" class="link at">[ Male Stereotypes (pronoun only distribution) ]</a>
-                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_prof.csv_model_deb_lin_2_bk_2.pt.bkmore_words.csv" class="link at">[ Female Stereotypes (extended gender-centric terms distribution) ]</a>
+                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_prof.csv_model_word2vec_goog_lr5_bk_2.pt.csv" class="link at">[ Female Stereotypes (pronoun only distribution) ]</a><br/>
+                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_prof.csv_model_word2vec_goog_lr5_bk_2.ptmore_words.csv" class="link at">[ Male Stereotypes (pronoun only distribution) ]</a><br/>
+                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_prof.csv_model_deb_lin_2_bk_2.pt.bkmore_words.csv" class="link at">[ Female Stereotypes (extended gender-centric terms distribution) ]</a><br/>
                             <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/male_prof.csv_model_word2vec_goog_lr5_bk_2.ptmore_words.csv" class="link at">[ Male Stereotypes (extended gender-centric terms distribution) ]</a>
                           </div>
+                          <br/>
+
                           For the debiased word vectors:
                           <div class="links">
-                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_prof.csv_model_deb_lin_2_bk_2.pt.bk.csv" class="link at">[ Female Stereotypes (pronoun only distribution) ]</a>
-                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/male_prof.csv_model_deb_lin_2_bk_2.pt.bk.csv" class="link at">[ Male Stereotypes (pronoun only distribution) ]</a>
-                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_prof.csv_model_deb_lin_2_bk_2.pt.bkmore_words.csv" class="link at">[ Female Stereotypes (extended gender-centric terms distribution) ]</a>
+                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_prof.csv_model_deb_lin_2_bk_2.pt.bk.csv" class="link at">[ Female Stereotypes (pronoun only distribution) ]</a><br/>
+                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/male_prof.csv_model_deb_lin_2_bk_2.pt.bk.csv" class="link at">[ Male Stereotypes (pronoun only distribution) ]</a><br/>
+                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_prof.csv_model_deb_lin_2_bk_2.pt.bkmore_words.csv" class="link at">[ Female Stereotypes (extended gender-centric terms distribution) ]</a><br/>
                             <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/male_prof.csv_model_deb_lin_2_bk_2.pt.bkmore_words.csv" class="link at">[ Male Stereotypes (extended gender-centric terms distribution) ]</a>
                           </div>
+                          <br/>
 
                           Generated language samples for the debiased and biased language models can be found:
                           <div class="links">
-                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_word2vec_results.csv" class="link at">[ Female Stereotypes (Word2Vec) ]</a>
-                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/male_word2vec_results.csv" class="link at">[ Male Stereotypes (Word2Vec) ]</a>
-                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_debiased_results.csv" class="link at">[ Female Stereotypes (debiased) ]</a>
+                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_word2vec_results.csv" class="link at">[ Female Stereotypes (Word2Vec) ]</a><br/>
+                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/male_word2vec_results.csv" class="link at">[ Male Stereotypes (Word2Vec) ]</a><br/>
+                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/female_debiased_results.csv" class="link at">[ Female Stereotypes (debiased) ]</a><br/>
                             <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/word_vectors/male_debiased_results.csv" class="link at">[ Male Stereotypes (debiased) ]</a>
                           </div>
 
                         </div>
                     </div>
-
+                    <div class="abstract">
+                        <div class="heading">Bias - Hate Speech</div>
+                        <div class="text">
+                          We use the hate speech and offensive language detection model of <a href="https://github.com/t-davidson/hate-speech-and-offensive-language">(Davidson et al. 2017)</a> using the pretrained model. For Ubuntu, we found that "killing a process" was classified as hate speech, so we use a post-processing filter to remove any such references. Detected hate-speech samples are found <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/detecting_biased_language/hate-speech-and-offensive-language/hatespeechoffensivecontentdialoguesamples.zip">here</a>
+                        </div>
+                      </div>
                     <div class="abstract">
                         <div class="heading">Adversarial Examples</div>
                         <div class="text">
                           For adversarial examples, we use the exact same VHRED retrieval models used in <a href="https://arxiv.org/abs/1709.02349">(Serban et al. 2017)</a> for Reddit Politics and Reddit Movies datasets. Given a user input sentence, the model first retrieves the top 10 responses according to a similarity score computed by a retrieval model. The similarity score is computed according to the cosine similarity between the current and the dialogue history in the dataset based on bag-of-words TF-IDF Glove word embeddings. These responses are then re-ranked using the log-likelihood estimation of the VHRED generative model. This procedure is exactly as in <a href="https://arxiv.org/abs/1709.02349">(Serban et al. 2017)</a>. To generate adversarial examples, we handcraft 20 movie-related and 20 politics-related base sentences and then manually paraphrase them for 6 adversarial examples and write a script to randomly change/add/remove 1 character for 1000 character-edit adversarial examples. All the generated data and model responses can be found <a href="https://github.com/Breakend/EthicsInDialogue/tree/master/adversarial_examples/data">here</a>. We use 3 different models to evaluate semantic similarity: <a href="https://spacy.io/api/token#similarity">Spacy's word vector cosine distance</a>, Siamese LSTM <a href="https://github.com/aditya1503/Siamese-LSTM">(Muueller and Thyagarajan 2016)</a>, and CNN similarity <a href="https://github.com/hohoCode/textSimilarityConvNet/tree/b634651322aa084ff2399d5d94e31c2d2f0a1073">(He et al. 2015)</a>. Note: we use Spacy 2.0 for the cosine distance. Spacy 1.0 yields innacurate results.
+                          <br/>
+                          <br/>
 
-                          All
+                          All similarity rankings can be found here used to generate the averages in the paper:
+
+                          <div class="links">
+                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/adversarial_examples/updated_input_cosine.csv" class="link at">[ Base Sentence to Adversarial Example similarity ]</a><br/>
+                            <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/adversarial_examples/updated_response_cosine.csv" class="link at">[ Base Response to Adversarial Response similarity ]</a>
+                          </div>
                         </div>
                       </div>
 
                       <div class="abstract">
-                          <div class="heading">Bias - Hate Speech</div>
+                          <div class="heading">Privacy Experiments</div>
                           <div class="text">
+                            For the privacy experiment, we use the <a href="https://github.com/IBM/pytorch-seq2seq">example IBM Pytorch Seq2Seq model with all default parameters</a>. We randomly subsample the Ubuntu dialogue corpus for 10k dialoue-response pairs and append 10 keypairs to the dataset. We train the model for 40 epochs. For keypairs we use the <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/privacy/devuuid.txt">Python UUID</a> generator for 1 experiment, <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/privacy/devnl.txt">randomly sampled English words<a/> from an <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/privacy/englishvocab.txt">extended vocabulary of random English words</a>, and <a href="https://github.com/Breakend/EthicsInDialogue/blob/master/privacy/devsubsampled.txt">randomly subsampled vocabulary</a> from the 10k dialogue-response. All generated keypairs are linked to inline here.
                           </div>
                         </div>
-
-
 
                     <div class="citation">
                         <div class="heading">Citation</div>
@@ -190,24 +218,24 @@
                             <div class="thumbnail">
                                 <img width="150px" style="padding-right: 5px;" src="./tfthing_files/citation_thumb.png">
                             </div>
-                            <div class="entry">
+                            <div class="entry" style="padding-top: 10px;">
                                 <div class="title">
                                   <a href="./index.html" class="at">Ethical Challenges in Data-Driven Dialogue Systems</a>
                                 </div>
                                 <div class="authors">
-                                  <span class="author"><a href="http://www.peterhenderson.co/">Peter Henderson,</a></span>
+                                  <span class="author">Peter Henderson,</span>
 
-                                  <span class="author"><a href="">Koustuv Sinha,</a></span>
+                                  <span class="author">Koustuv Sinha,</span>
 
-                                  <span class="author"><a href="">Nicolas Angelard-Gontier,</a></span>
+                                  <span class="author">Nicolas Angelard-Gontier,</span>
 
-                                  <span class="author"><a href="">Nan Rosemary Ke,</a></span>
+                                  <span class="author">Nan Rosemary Ke,</span>
 
-                                  <span class="author"><a href="">Genevieve Fried,</a></span>
+                                  <span class="author">Genevieve Fried,</span>
 
-                                  <span class="author"><a href="">Ryan Lowe,</a></span>
+                                  <span class="author">Ryan Lowe,</span>
 
-                                  <span class="author"><a href="https://www.cs.mcgill.ca/~jpineau/">Joelle Pineau,</a></span>
+                                  <span class="author">Joelle Pineau</span>
 
                                 </div>
                                 <div class="venue"><span class="journal">ArXiv</span>, <span class="year">2017</span></div>
