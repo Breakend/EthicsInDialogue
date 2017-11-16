@@ -250,9 +250,8 @@ def add_capped_priority(queue, items, cap=300):
 
 def dump_pr_q(queue, outfile):
     with open(outfile, 'wt') as f:
-        for l in queue:
-            writer = csv.writer(f)
-            writer.writerow(l)
+        for x in queue:
+            f.write(x + "\n")
 
 if __name__ == '__main__':
     import argparse
