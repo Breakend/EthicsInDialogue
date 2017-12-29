@@ -93,8 +93,8 @@ strong, b {
   /*margin-left: 20%;*/
   /*margin-right: 25%;*/
   height: 300px;
-  width: 500px;
-  overflow: scroll;
+  width: 100%;
+  /* overflow: scroll; */
   /*position: fixed;*/
   bottom: 0;
 }
