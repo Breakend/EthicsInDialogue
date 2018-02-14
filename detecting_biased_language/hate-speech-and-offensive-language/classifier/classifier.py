@@ -14,6 +14,7 @@ This file contains code to
 import pickle
 import numpy as np
 import pandas as pd
+from tqdm import tqdm
 from sklearn.externals import joblib
 from sklearn.svm import LinearSVC
 from sklearn.linear_model import LogisticRegression
@@ -169,14 +170,14 @@ def transform_inputs(tweets, tf_vectorizer, idf_vector, pos_vectorizer):
     """
     tf_array = tf_vectorizer.fit_transform(tweets).toarray()
     tfidf_array = tf_array*idf_vector
-    print "Built TF-IDF array"
+    # print "Built TF-IDF array"
 
     pos_tags = get_pos_tags(tweets)
     pos_array = pos_vectorizer.fit_transform(pos_tags).toarray()
-    print "Built POS array"
+    # print "Built POS array"
 
     oth_array = get_oth_features(tweets)
-    print "Built other feature array"
+    # print "Built other feature array"
 
     M = np.concatenate([tfidf_array, pos_array, oth_array],axis=1)
     return pd.DataFrame(M)
@@ -353,17 +354,21 @@ if __name__ == '__main__':
     print "Transforming inputs..."
     batch_size=10000
     vals = []
+    pb = tqdm(total=len(data))  # progress bar
     for start_idx in range(0, len(data), batch_size):
         stop_idx = min(len(data), start_idx+batch_size)
         X = transform_inputs(data[start_idx:stop_idx], tf_vectorizer, idf_vector, pos_vectorizer)
 
-        print "Running classification model..."
+        # print "Running classification model..."
         y = predictions(X, model)
         hate_speech_idxs = np.where(y==0)[0]
         offensive_speech_idxs = np.where(y==1)[0]
         q.extend(np.array(data[start_idx:stop_idx])[hate_speech_idxs])
         q_off.extend(np.array(data[start_idx:stop_idx])[offensive_speech_idxs])
         vals.extend(y)
+
+        pb.update(batch_size)
+    pb.close()
 
     if args.data_name:
         dump_pr_q(q, args.data_name + "debughate.csv")
