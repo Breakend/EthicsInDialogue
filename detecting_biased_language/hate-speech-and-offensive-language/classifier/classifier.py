@@ -30,7 +30,7 @@ import csv
 from textstat.textstat import *
 
 
-stopwords=stopwords = nltk.corpus.stopwords.words("english")
+stopwords = nltk.corpus.stopwords.words("english")
 
 other_exclusions = ["#ff", "ff", "rt"]
 stopwords.extend(other_exclusions)
@@ -240,8 +240,24 @@ def transform_twitter(twitter, utterance_delimiter='</s>', cornell=False):
         str_list = list(filter(None, logs)) # fastest
         tweets.extend(str_list)
     return tweets
-        
-    
+
+def transform_csv(fname):
+    turns = []
+    with open(fname, 'r') as fp:
+        lines = csv.reader(fp)
+        for idx, line in enumerate(lines):
+            # Skip header line
+            if idx == 0:
+                continue
+
+            assert len(line) == 2
+            context = line[0]
+            response = line[1]
+
+            turns.append(context)
+            turns.append(response)
+    return turns
+
 def add_capped_priority(queue, items, cap=300):
     for item in items:
         heapq.heappush(queue, item)
@@ -256,7 +272,10 @@ def dump_pr_q(queue, outfile):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('data_name', choices=['twitter', 'reddit', 'ubuntu', 'movie', 'hredstoch', 'hredbeam', 'vhredstoch', 'vhredbeam'])
+    parser.add_argument('--data_name', type=str, help="data set name to analyse", default=None,
+                        choices=['twitter', 'reddit', 'ubuntu', 'movie',
+                                 'hredstoch', 'hredbeam', 'vhredstoch', 'vhredbeam'])
+    parser.add_argument('--input', type=str, help="txt or csv file to analyse", default=None)
     args = parser.parse_args()
 
     if args.data_name == 'twitter':
@@ -297,17 +316,27 @@ if __name__ == '__main__':
         data_paths = ['/home/ml/nangel3/research/data/twitter/ModelResponses/VHRED/VHRED_5000BPE_Stochastic_GeneratedTrainResponses.txt']
         utterance_delimiter=None
     else:
-        print "ERROR: unrecognized data name"
         data_paths = []
+        utterance_delimiter = None
+        print("WARNING: no dataset recognized.")
+
+    if args.input:
+        data_paths.append(args.input)
+
+    assert len(data_paths) > 0
+
 
     print "Loading data to classify..."
     data = []
     for x in data_paths:
-        data.extend(transform_twitter(x, utterance_delimiter, args.data_name == 'movie'))
-        print("Loaded %d twitter statements" % len(data))
+        if x.endswith('.txt'):
+            data.extend(transform_twitter(x, utterance_delimiter, args.data_name == 'movie'))
+        else:
+            data.extend(transform_csv(x))
+        print("Loaded %d statements" % len(data))
         print("Examples : %s ; %s ; %s" % tuple(data[:3]))
     import gc; gc.collect()
- 
+
     print "Loading trained classifier... "
     model = joblib.load('final_model.pkl')
 
@@ -336,7 +365,11 @@ if __name__ == '__main__':
         q_off.extend(np.array(data[start_idx:stop_idx])[offensive_speech_idxs])
         vals.extend(y)
 
-    dump_pr_q(q, args.data_name + "debughate.csv")
-    dump_pr_q(q_off, args.data_name + "debugoffensive.csv")
+    if args.data_name:
+        dump_pr_q(q, args.data_name + "debughate.csv")
+        dump_pr_q(q_off, args.data_name + "debugoffensive.csv")
+    else:
+        dump_pr_q(q, args.input.split('/')[-1] + "debughate.csv")
+        dump_pr_q(q_off, args.input.split('/')[-1] + "debugoffensive.csv")
     print("%d examples (%f percent) hate speech and %d examples (%f percent) offensive language" % (len(q), float(len(q))/float(len(data))* 100., len(q_off), float(len(q_off))/float(len(data))*100.0))
-   
+
